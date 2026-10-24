@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T21:15:47.728Z",
+  "generatedAt": "2026-10-24T21:34:34.700Z",
   "A01": {
     "name": "可运行",
     "status": "PASS",
@@ -60,6 +60,6 @@
     "status": "PASS",
     "evidence": "reports/ + handoff/sflipcloop/execution-report.md"
   },
-  "consoleErrors": 1,
+  "consoleErrors": 0,
   "thirdPartyRequests": 0
 }

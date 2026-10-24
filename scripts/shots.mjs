@@ -39,6 +39,9 @@ await sleep(1200);
 async function shot(name, { width = 1600, height = 1000, dpr = 1, mobile = false, setup } = {}) {
   await page.setViewport(width, height, dpr, mobile);
   await sleep(500);
+  // 强制同步画布尺寸与相机宽高比（headless 视口变更不总能触发 ResizeObserver）
+  await page.evaluate(`window.dispatchEvent(new Event('resize'))`);
+  await sleep(350);
   if (setup) { await page.evaluate(setup); await sleep(1400); }
   await page.screenshot(`${OUT}/${name}.png`);
   console.log(`  ✓ ${name}.png  ${width}×${height}@${dpr}`);
@@ -60,12 +63,13 @@ await shot('11-detail', { width: 1600, height: 1000, dpr: 1, setup: `window.__yi
 await shot('12-ui', { width: 1600, height: 1000, dpr: 1, setup: `window.__yingxianDebug.setView('exploded')` });
 await shot('13-exploded', { width: 1600, height: 1000, dpr: 1, setup: `window.__yingxianDebug.goTo('topNE')` });
 await shot('14-failure', { width: 390, height: 844, dpr: 3, mobile: true, setup: `window.__yingxianDebug.setQuality('safe')` });
-await shot('16-evidence', { width: 1600, height: 1000, dpr: 1, setup: `document.getElementById('btn-evidence').click()` });
-
-// 昼夜三态
+// 昼夜三态（先出，避免被后续弹窗遮住）
 for (const [key, name] of [['day', '15-light-day'], ['sunset', '15-light-sunset'], ['night', '15-light-night']]) {
   await shot(name, { width: 1600, height: 1000, dpr: 1, setup: `window.__yingxianDebug.setLight('${key}')` });
 }
+
+// 证据面板（放最后，避免遮住其它截图）
+await shot('16-evidence', { width: 1600, height: 1000, dpr: 1, setup: `document.getElementById('btn-evidence').click()` });
 
 console.log('\n=== console errors ===');
 console.log(consoleErrors.length ? consoleErrors.join('\n') : '(无)');

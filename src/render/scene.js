@@ -49,7 +49,10 @@ export function createStage(container, opts = {}) {
     powerPreference: 'high-performance',
     stencil: false
   });
-  renderer.setSize(container.clientWidth || 1280, container.clientHeight || 720);
+  // 注意：必须传 updateStyle = false。
+  // 否则 three.js 会把 canvas 的 inline style 写成固定 px，
+  // 从而压过样式表里的 width/height:100%，画布尺寸就此冻结在首次布局值上。
+  renderer.setSize(container.clientWidth || 1280, container.clientHeight || 720, false);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.9;
@@ -71,7 +74,7 @@ export function createStage(container, opts = {}) {
     CAMERA_LIMITS.near,
     CAMERA_LIMITS.far
   );
-  camera.position.set(-49, 30, 84);
+  camera.position.set(-53, 31, 91);
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -96,16 +99,49 @@ export function createStage(container, opts = {}) {
     if (camera.position.y < 1.2) camera.position.y = 1.2;
   });
 
+  // 取景盒：只框「塔身 + 塔刹」，不把宽大的台基算进去，
+  // 否则竖屏时塔会被压得很小。台基允许在极窄屏上轻微出血。
+  let fitWidth = 30.6;
+  let fitHeight = 67.31;
+  let fitCenterY = 31;           // 取景中心（塔身中段）
+  let userAdjusted = false;      // 用户手动缩放后不再自动后拉
+
   function resize() {
     const w = container.clientWidth || 1280;
     const h = container.clientHeight || 720;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
+    ensureFits();
   }
 
+  /**
+   * 窄屏（竖屏）时水平视场很窄，固定机位会把塔挤出画面。
+   * 这里在**不改变朝向**的前提下把相机后拉到刚好容下塔体。
+   */
+  function ensureFits() {
+    if (userAdjusted) return;
+    const vFov = THREE.MathUtils.degToRad(camera.fov);
+    const hFov = 2 * Math.atan(Math.tan(vFov / 2) * camera.aspect);
+    // 竖屏时底部被操作条占据，给塔基留出余量，并把取景中心下移，使塔体在画面中上移
+    const portrait = camera.aspect < 0.85;
+    const bottomClear = portrait ? fitHeight * 0.20 : 0;
+    const dV = ((fitHeight + bottomClear) / 2) / Math.tan(vFov / 2);
+    const dH = (fitWidth / 2) / Math.tan(hFov / 2);
+    const need = Math.max(dV, dH) * 1.06;
+    if (portrait) controls.target.y = fitCenterY - bottomClear * 0.5;
+    const offset = camera.position.clone().sub(controls.target);
+    const dist = offset.length();
+    if (dist < need && dist > 0.01) {
+      camera.position.copy(controls.target).addScaledVector(offset.normalize(), need);
+    }
+  }
+
+  const onWindowResize = () => resize();
+  window.addEventListener('resize', onWindowResize);
   const resizeObserver = new ResizeObserver(() => resize());
   resizeObserver.observe(container);
+  controls.addEventListener('start', () => { userAdjusted = true; });
 
   return {
     renderer,
@@ -115,7 +151,18 @@ export function createStage(container, opts = {}) {
     container,
     resize,
     setPixelRatio(r) { renderer.setPixelRatio(r); resize(); },
+    /** 设定取景盒（宽 × 高，单位米），供窄屏自适应取景使用 */
+    setSceneBounds({ width, height, centerY }) {
+      if (width) fitWidth = width;
+      if (height) fitHeight = height;
+      if (centerY) fitCenterY = centerY;
+      ensureFits();
+    },
+    /** 强制重新适配（切机位或换档后调用） */
+    refit() { userAdjusted = false; ensureFits(); },
+    resize,
     dispose() {
+      window.removeEventListener('resize', onWindowResize);
       resizeObserver.disconnect();
       controls.dispose();
       renderer.dispose();

@@ -54,7 +54,7 @@ function cubicBezierY(s) {
 export const CAMERA_PRESETS = Object.freeze([
   Object.freeze({
     key: 'whole', label: '全貌', hint: '正南偏西的地面仰视，全塔与石基尽收',
-    position: Object.freeze([-49, 30, 84]), target: Object.freeze([0, 31, 0]), fov: 45
+    position: Object.freeze([-53, 31, 91]), target: Object.freeze([0, 30, 0]), fov: 45
   }),
   Object.freeze({
     key: 'south', label: '正南立面', hint: '正对南面明间，看层层收分与六重檐',
@@ -89,7 +89,7 @@ export const CAMERA_PRESETS = Object.freeze([
 /**
  * 创建相机动画管理器。
  */
-export function createCameraDirector(camera, controls) {
+export function createCameraDirector(camera, controls, onComplete = null) {
   let tween = null;
 
   function startTween(to, duration = 1.15) {
@@ -117,7 +117,7 @@ export function createCameraDirector(camera, controls) {
       camera.fov = fov;
       camera.updateProjectionMatrix();
     }
-    if (tween.t >= 1) tween = null;
+    if (tween.t >= 1) { tween = null; onComplete?.(); }
     return true;
   }
 

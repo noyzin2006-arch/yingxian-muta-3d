@@ -47,7 +47,7 @@ html, body {
 #app { position: fixed; inset: 0; }
 
 .stage { position: absolute; inset: 0; }
-.yx-canvas { display: block; width: 100%; height: 100%; outline: none; }
+.yx-canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -238,28 +238,64 @@ html, body {
 
 /* ── 响应式 ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
+  /* 注释卡在窄屏由抽屉承担 */
   .yx-card { display: none; }
-  .yx-title { padding: 14px 16px; max-width: 100%; }
-  .yx-title h1 { font-size: 20px; }
-  .yx-title h1 span { display: block; margin: 2px 0 0; font-size: 12px; }
-  .yx-title p { font-size: 11.5px; }
+  /* 性能仪表仅供调试，窄屏不显示，避免遮挡标题 */
+  .yx-hud { display: none; }
+
+  /* 标题压缩为两行 */
+  .yx-title {
+    padding: 10px 14px; max-width: 100%;
+    background: linear-gradient(180deg, rgba(214,215,210,0.92) 0%, rgba(214,215,210,0.0) 100%);
+  }
+  .yx-title h1 { font-size: 19px; line-height: 1.25; }
+  .yx-title h1 span { display: block; margin: 1px 0 0; font-size: 11.5px; letter-spacing: 0.06em; }
+  .yx-title p { display: none; }
+
+  /* 模式与光照：底部可左右滑动的单行操作条 */
   .yx-modes {
     left: 0; right: 0; bottom: 0; transform: none; border-radius: 0;
     border-left: 0; border-right: 0; border-bottom: 0;
-    overflow-x: auto; justify-content: flex-start; padding: 8px 12px;
+    overflow-x: auto; justify-content: flex-start; padding: 6px 10px;
+    gap: 8px; -webkit-overflow-scrolling: touch;
   }
-  .yx-group + .yx-group { padding-left: 10px; }
-  .yx-controls { right: 12px; bottom: 74px; padding: 6px 8px; gap: 6px; }
-  .yx-note { display: none; }
-  .yx-hotspots { right: 12px; top: auto; bottom: 190px; transform: none; }
-  .yx-floors { left: 12px; top: auto; bottom: 190px; transform: none; }
+  .yx-group + .yx-group { padding-left: 8px; }
+  .yx-btn { min-height: 42px; padding: 7px 11px; font-size: 13px; }
+
+  /* 控制条：单行可横滑，放在模式条上方 */
+  .yx-controls {
+    left: 0; right: 0; bottom: 52px; transform: none; max-width: none;
+    padding: 5px 10px; gap: 6px; border-left: 0; border-right: 0; border-bottom: 0;
+    border-radius: 0; overflow-x: auto; justify-content: flex-start;
+    background: rgba(242,240,233,0.9);
+  }
   .yx-select label { display: none; }
+  .yx-select select { min-height: 38px; padding: 4px 6px; font-size: 12.5px; }
+  .yx-controls .yx-btn { min-height: 38px; padding: 5px 10px; font-size: 12.5px; white-space: nowrap; }
+
+  /* 楼层与热点：改为底部横向可滑动的两行，避免压住画面中部 */
+  .yx-floors, .yx-hotspots {
+    left: 0; right: 0; top: auto; bottom: auto; transform: none;
+    flex-direction: row; align-items: center; gap: 6px;
+    overflow-x: auto; padding: 4px 10px; background: none; -webkit-overflow-scrolling: touch;
+  }
+  .yx-floors { bottom: 96px; }
+  .yx-hotspots { bottom: 134px; }
+  .yx-floors button, .yx-hotspots button {
+    min-height: 32px; padding: 4px 10px; font-size: 12px; white-space: nowrap; flex: 0 0 auto;
+  }
+
+  .yx-note { display: none; }
+  .yx-drawer { max-height: 52vh; }
 }
 
 @media (max-width: 480px) {
-  .yx-title h1 { font-size: 18px; }
-  .yx-controls { bottom: 68px; max-width: calc(100vw - 24px); }
-  .yx-btn { padding: 8px 10px; font-size: 12.5px; }
+  .yx-title h1 { font-size: 17px; }
+  .yx-title h1 span { font-size: 11px; }
+  .yx-btn { padding: 7px 9px; font-size: 12.5px; }
+  .yx-controls .yx-btn { padding: 5px 8px; font-size: 12px; }
+  .yx-floors { bottom: 92px; }
+  .yx-hotspots { bottom: 128px; }
 }
 
 /* ── 减弱动态效果 ───────────────────────────────────────── */

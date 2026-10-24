@@ -51,7 +51,8 @@ async function boot() {
   const lighting = createLighting(stage.scene, { shadowSize: 2048 });
   const composer = createComposer(stage.renderer, stage.scene, stage.camera);
   const frameStats = createFrameStats();
-  const cameraDirector = createCameraDirector(stage.camera, stage.controls);
+  // 机位动画结束后按当前视口宽高比重新适配（竖屏尤其重要）
+  const cameraDirector = createCameraDirector(stage.camera, stage.controls, () => stage.refit());
 
   const ui = createUI({
     onView: (v) => store.setView(v),
@@ -163,6 +164,8 @@ async function boot() {
   }
 
   stage.scene.add(pagoda.root);
+  // 取景盒：塔身底径 30.27 m × 通高 67.31 m（台基不计入，否则竖屏时塔会被压得很小）
+  stage.setSceneBounds({ width: 30.6, height: 67.31, centerY: 31 });
 
   hotspots = createHotspots(pagoda.structure);
   stage.scene.add(hotspots.group);
@@ -363,7 +366,7 @@ async function boot() {
       setQuality: (q) => { store.setQuality(q); return quality.resolved; },
       setView: (v) => { store.setView(v); },
       setLight: (l) => { store.setLight(l); },
-      goTo: (k) => cameraDirector.goTo(k),
+      goTo: (k) => { const r = cameraDirector.goTo(k); stage.refit(); return r; },
       /** 持续绕塔缓慢旋转（供帧率实测时保持画面变化，避免按需渲染导致的假低帧） */
       spin: (deg = 1.2) => {
         const t = stage.controls.target;

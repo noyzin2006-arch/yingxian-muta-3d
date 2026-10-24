@@ -1,42 +1,41 @@
-启动期 Console 原始输出（2026-10-24T21:15:47.727Z）
+启动期 Console 原始输出（2026-10-24T21:34:34.700Z）
 页面：http://127.0.0.1:5174/?debug=1
 
 [debug] [vite] connecting...
 [debug] [vite] connected.
-[log:error] Failed to load resource: the server responded with a status of 404 (Not Found)
-[info] [YX] frame 300 {"samples":240,"fpsMedian":59.88,"fpsByCount":55.17,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":350}
-[info] [YX] frame 600 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 300 {"samples":240,"fpsMedian":59.88,"fpsByCount":59.75,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":33.3}
+[info] [YX] frame 600 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 900 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 1200 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 1500 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 1800 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 2100 {"samples":240,"fpsMedian":59.88,"fpsByCount":55.6,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":333.3}
+[info] [YX] frame 1800 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 2100 {"samples":240,"fpsMedian":59.88,"fpsByCount":59.75,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":33.3}
 [info] [YX] frame 2400 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 2700 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 3000 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 3300 {"samples":240,"fpsMedian":59.88,"fpsByCount":55.39,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":350}
+[info] [YX] frame 2700 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 3000 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 3300 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 3600 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 3900 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 4200 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 3900 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 4200 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 4500 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 4800 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 5100 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 5400 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 5700 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 6000 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 5400 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 5700 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 6000 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 6300 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 6600 {"samples":240,"fpsMedian":59.88,"fpsByCount":59.75,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":33.4}
+[info] [YX] frame 6600 {"samples":240,"fpsMedian":59.88,"fpsByCount":59.75,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":33.3}
 [info] [YX] frame 6900 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 7200 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 7200 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 7500 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 7800 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 8100 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
-[info] [YX] frame 8400 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 7800 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 8100 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
+[info] [YX] frame 8400 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 8700 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
 [info] [YX] frame 9000 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
 [info] [YX] frame 9300 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 9600 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":16.8}
-[info] [YX] frame 9900 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 9600 {"samples":240,"fpsMedian":59.88,"fpsByCount":60,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.7,"frameTimeMaxMs":16.8}
+[info] [YX] frame 9900 {"samples":240,"fpsMedian":59.88,"fpsByCount":59.75,"frameTimeMedianMs":16.7,"frameTimeP95Ms":16.8,"frameTimeMaxMs":33.4}
 
-错误计数：1
+错误计数：0
 第三方网络请求：（无）
