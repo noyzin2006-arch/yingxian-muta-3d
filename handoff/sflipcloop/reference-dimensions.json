@@ -1,0 +1,169 @@
+{
+  "units": "m",
+  "updatedAt": "2026-10-25",
+  "provenance": "handoff/sflipcloop/reference-dimensions.md",
+  "note": "机器可读的实测锚点。仅收录有出处的数值；冲突项已在 conflicts 中并列标注。",
+
+  "overall": {
+    "totalHeight": 67.31,
+    "bodyOctagonDiagonal": 30.27,
+    "heightDiameterRatio": 2.223,
+    "levels": 5,
+    "eaves": 6,
+    "hiddenFloors": 4,
+    "planSides": 8
+  },
+
+  "geometry": {
+    "cos22_5": 0.92388,
+    "acrossFlatsFromDiagonal": 0.92388,
+    "sideFromAcrossFlats": 2.41421,
+    "diagonalFromSide": 2.61313
+  },
+
+  "platform": {
+    "height": 4.0,
+    "lowerSquareSide": 40.0,
+    "upperOctagonDiagonal": 35.47,
+    "moonPlatforms": ["正东", "正西", "正南"]
+  },
+
+  "moduleA": {
+    "A": 8.83,
+    "ratios": { "base": 0.5, "bodyToFinialBase": 6.0, "finial": 1.125, "total": 7.625 },
+    "derived": { "base": 4.415, "bodyToFinialBase": 52.98, "finial": 9.934, "total": 67.329 },
+    "note": "陈明达比例控制法；三层面阔 A=8.83 m 为总高各段的分配模数"
+  },
+
+  "levels": [
+    {
+      "index": 1, "name": "一层",
+      "columnHeadWidthMeasured": 9.553,
+      "octagonDiagonalDerived": 30.27,
+      "outerColumnHeadPuzuo": "七铺作双杪双下昂",
+      "intermediatePuzuo": "七铺作双杪双下昂",
+      "puzuoJump": 7,
+      "clearHeight": 11.5,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "innerSlotDiagonal": 10.25
+    },
+    {
+      "index": 2, "name": "二层",
+      "columnHeadWidthMeasured": 9.148,
+      "octagonDiagonalDerived": 28.99,
+      "outerColumnHeadPuzuo": "七铺作双杪双下昂",
+      "intermediatePuzuo": "五铺作双杪偷心",
+      "puzuoJump": 7,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1
+    },
+    {
+      "index": 3, "name": "三层",
+      "columnHeadWidthMeasured": 8.800,
+      "octagonDiagonalDerived": 27.88,
+      "outerColumnHeadPuzuo": "六铺作三杪",
+      "intermediatePuzuo": "六铺作三杪",
+      "puzuoJump": 6,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1
+    },
+    {
+      "index": 4, "name": "四层",
+      "columnHeadWidthMeasured": 8.439,
+      "octagonDiagonalDerived": 26.74,
+      "outerColumnHeadPuzuo": "五铺作双杪计心",
+      "intermediatePuzuo": "五铺作双杪计心",
+      "puzuoJump": 5,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1
+    },
+    {
+      "index": 5, "name": "五层",
+      "columnHeadWidthMeasured": 8.004,
+      "octagonDiagonalDerived": 25.37,
+      "outerColumnHeadPuzuo": "四铺作单杪",
+      "intermediatePuzuo": "五铺作双杪",
+      "puzuoJump": 4,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "note": "南面三间，其余各面两间"
+    }
+  ],
+
+  "puzuoJumpSequence": [7, 7, 6, 5, 4],
+  "secondaryPuzuoJump": 5,
+  "secondaryPuzuoNote": "副阶柱头：五铺作双杪偷心",
+
+  "columns": {
+    "outerPerLevel": 24,
+    "innerPerLevel": 8,
+    "planSides": 8,
+    "note": "8 面 × 每面 3 间 = 24 根外檐柱；内槽每面 1 间 = 8 根内柱"
+  },
+
+  "innerSlot": {
+    "diagonal": 10.25,
+    "wallThickness": 2.86,
+    "outerWallOffset": 2.38,
+    "outerWallThickness": 2.6
+  },
+
+  "finial": {
+    "brickLotusBase": 2.17,
+    "ironFinial": 9.95,
+    "ironFinialModuleA": 9.934,
+    "officialTotalClaim": 11.67,
+    "bodySegmentIncludingBrickLotus": 52.98,
+    "sequence": ["覆钵", "相轮", "宝盖", "火烟", "仰月", "二层宝盖", "宝珠"],
+    "ironChains": 8,
+    "note": "省文物局原文「仰莲刹座高2.17m，其上铁质刹身高9.95m……总高11.67m」内部不自洽：2.17+9.95=12.12≠11.67。按陈明达 A 模数，1⅛A=9.934m 恰为铁刹身，故砖仰莲(2.17m)应包含在 6A 塔身段(52.98m)之内，而非叠加。建模口径：总高 = 台基(A/2) + 塔身及砖仰莲(6A) + 铁刹(1⅛A) = 67.33m。"
+  },
+
+  "eaveProfile": {
+    "note": "各层塔檐基本平直，角翘十分平缓；平座、塔身、塔檐三层水平线条重叠",
+    "eaveCornerRise": "very_gentle"
+  },
+
+  "statues": [
+    { "level": 1, "content": "释迦佛坐像", "height": 11.0, "altarPlan": "round_lotus", "note": "壁面绘 6 尊如来、12 尊飞天；顶施斗八藻井" },
+    { "level": 2, "content": "一佛二菩萨二协侍", "height": null, "altarPlan": "square", "note": "佛右手降魔触地印、左手禅定印" },
+    { "level": 3, "content": "四方佛", "height": null, "altarPlan": "octagon", "note": "密宗金刚界四佛" },
+    { "level": 4, "content": "一佛二菩萨二弟子", "height": null, "altarPlan": null, "note": "文殊骑狮、普贤骑象；文殊普贤为辽代原塑" },
+    { "level": 5, "content": "一佛八大菩萨", "height": null, "altarPlan": null, "note": "大日如来佛施智拳印" }
+  ],
+
+  "plaques": [
+    { "level": 5, "text": "峻极神工", "by": "明成祖朱棣" },
+    { "level": 4, "text": "天下奇观", "by": "明武宗朱厚照" },
+    { "level": 3, "text": "释迦塔", "by": "明成化七年功德主闫富贵" },
+    { "level": 1, "text": "万古观瞻", "by": "清康熙六十一年应州知州章弘" }
+  ],
+
+  "counts": { "statues": 34, "plaques": 52, "couplets": 6, "muralsArea": 304.65, "dougongTypes": 54 },
+
+  "conflicts": [
+    { "item": "斗栱组数", "values": ["240 组（人民日报）", "480 多朵（山西省政府驻广州办）", "超过 500 组（科普中国）"], "resolution": "以「54 种」形制种数为口径基准；组数按逐层铺作实际布置推算，不宣称单一总数" },
+    { "item": "塔身总重", "values": ["7400 余吨", "2600 多吨"], "resolution": "取 7400 t" },
+    { "item": "铁刹高", "values": ["9.95 m（省文物局）", "9.49 m（澎湃实测）"], "resolution": "取 9.95 m，总高对齐 11.67 m" },
+    { "item": "脊槫至刹座", "values": ["2.17 m（省文物局）", "3.045 m（澎湃实测）"], "resolution": "取 2.17 m" },
+    { "item": "尺长", "values": ["0.294 m（傅熹年）", "0.306 m（澎湃假说）"], "resolution": "两套并列；建模直接采用实测毫米值" },
+    { "item": "斗栱种数", "values": ["54 种（官方）", "56 / 60+ / 70+ 种（营造学社引）"], "resolution": "取 54" }
+  ],
+
+  "unverified": [
+    "二层铁柱数量（常见说法 22 根）——未获权威来源",
+    "各明层柱高毫米数（澎湃文表4为图片）——仅知一层柱高约为二至五层的 3 倍；五层柱高较二三四层偏小约 100 mm",
+    "斗口尺寸、椽径与飞椽出挑的米制值",
+    "举折每步折数与坡度的米制值",
+    "各层屋檐出挑的米制值（须由铺作跳数推定）"
+  ],
+
+  "tolerances": {
+    "totalHeightPct": 1.0,
+    "levelDiagonalPct": 3.0,
+    "bodyHeightPct": 5.0,
+    "heightDiameterRatioMin": 2.15,
+    "heightDiameterRatioMax": 2.30
+  }
+}
