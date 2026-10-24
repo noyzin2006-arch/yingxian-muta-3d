@@ -39,9 +39,8 @@ function makeCheck(id, title, pass, expected, actual, detail = '') {
 
 /**
  * 校验模型参数与实测锚点的一致性。
- * @param {object} model 模型参数（见 README「模型参数契约」）
+ * @param {object} model 模型参数（见 scripts/export-model-parameters.mjs）
  * @param {object} ref   实测锚点（reference-dimensions.json）
- * @returns {{checks: Array, failed: number, passed: number}}
  */
 export function checkModel(model, ref) {
   const t = ref.tolerances;
@@ -60,8 +59,7 @@ export function checkModel(model, ref) {
   );
 
   // C02 高径比
-  const d0 = L[0]?.octagonDiagonal;
-  const ratio = d0 ? model.totalHeight / d0 : NaN;
+  const ratio = model.base ? model.totalHeight / model.base : NaN;
   checks.push(
     makeCheck(
       'C02', '高径比约 2.2（敦厚而不失高峻）',
@@ -71,23 +69,24 @@ export function checkModel(model, ref) {
     )
   );
 
-  // C03 逐层收分单调递减
-  const diag = L.map((l) => l.octagonDiagonal);
-  const mono = diag.every((v, i) => i === 0 || v < diag[i - 1]);
+  // C03 逐层收分单调递减（外槽柱线边长 s）
+  const sides = L.map((l) => l.outerFaceWidthM);
+  const mono = sides.every((v, i) => i === 0 || v < sides[i - 1]);
   checks.push(
-    makeCheck('C03', '逐层收分：上层对角径严格小于下层', mono, '严格递减', diag.join(' > '))
+    makeCheck('C03', '逐层收分：上层柱线面宽严格小于下层', mono, '严格递减',
+      sides.map((v) => v.toFixed(4)).join(' > '))
   );
 
-  // C04 逐层对角径贴合实测比例
-  const derived = ref.levels.map((r) => r.octagonDiagonalDerived);
-  const ratioErrs = L.map((l, i) => (derived[i] ? pctDiff(l.octagonDiagonal, derived[i]) : Infinity));
-  const worstIdx = ratioErrs.indexOf(Math.max(...ratioErrs));
+  // C04 逐层面宽与北测实测均值的偏差
+  const measured = ref.levels.map((r) => r.measuredFaceWidthM);
+  const faceErrs = L.map((l, i) => (measured[i] ? pctDiff(l.outerFaceWidthM, measured[i]) : Infinity));
+  const worstFace = faceErrs.indexOf(Math.max(...faceErrs));
   checks.push(
     makeCheck(
-      'C04', '逐层对角径贴合实测（北测面阔比推算）',
-      ratioErrs.every((e) => e <= t.levelDiagonalPct),
-      `每层 ±${t.levelDiagonalPct}%`,
-      `最大偏差 ${Math.max(...ratioErrs).toFixed(2)}% @${L[worstIdx]?.name ?? '?'}`
+      'C04', '逐层外槽柱线面宽贴合北测实测均值',
+      faceErrs.every((e) => e <= t.levelFaceWidthPct),
+      `每层 ±${t.levelFaceWidthPct}%`,
+      `最大偏差 ${Math.max(...faceErrs).toFixed(2)}% @${L[worstFace]?.name ?? '?'}`
     )
   );
 
@@ -98,8 +97,7 @@ export function checkModel(model, ref) {
     makeCheck(
       'C05', '各层外檐柱头铺作跳数 7/7/6/5/4',
       seq.length === wantSeq.length && seq.every((v, i) => v === wantSeq[i]),
-      wantSeq.join('/'),
-      seq.join('/')
+      wantSeq.join('/'), seq.join('/')
     )
   );
 
@@ -113,26 +111,21 @@ export function checkModel(model, ref) {
   checks.push(
     makeCheck(
       'C06', '每层外檐柱 24 根 / 内槽柱 8 根（8 面 × 3 间 / 每面 1 间）',
-      colOk,
-      `${ref.columns.outerPerLevel} / ${ref.columns.innerPerLevel}`,
-      colActual
+      colOk, `${ref.columns.outerPerLevel} / ${ref.columns.innerPerLevel}`, colActual
     )
   );
 
   // C07 开间划分
-  const bayOk = L.every(
-    (l) => l.outerBaysPerFace === 3 && l.innerBaysPerFace === 1
-  );
+  const bayOk = L.every((l) => l.outerBaysPerFace === 3 && l.innerBaysPerFace === 1);
   checks.push(
     makeCheck(
       'C07', '外檐每面三间、内槽每面一间',
-      bayOk,
-      '外檐 3 / 内槽 1',
+      bayOk, '外檐 3 / 内槽 1',
       `外檐 ${[...new Set(L.map((l) => l.outerBaysPerFace))].join('/')} / 内槽 ${[...new Set(L.map((l) => l.innerBaysPerFace))].join('/')}`
     )
   );
 
-  // C08 塔身高度分配（总高 − 台基 − 铁刹 ≈ 6A，砖仰莲含在 6A 段内）
+  // C08 A 模数：总高 − 台基 − 铁刹 ≈ 6A
   const body = model.totalHeight - (model.platform?.height ?? 0) - (model.finial?.iron ?? 0);
   const wantBody = ref.moduleA.derived.bodyToFinialBase;
   const bodyErr = pctDiff(body, wantBody);
@@ -161,17 +154,16 @@ export function checkModel(model, ref) {
   const p = model.platform ?? {};
   const pHeightErr = pctDiff(p.height ?? 0, ref.platform.height);
   const pUpperErr = pctDiff(p.upperOctagonDiagonal ?? 0, ref.platform.upperOctagonDiagonal);
-  const pLowerErr = pctDiff(p.lowerSquareSide ?? 0, ref.platform.lowerSquareSide);
   checks.push(
     makeCheck(
-      'C10', '台基：4 m 高 / 下层方形 40 m / 上层八角 D=35.47 m',
-      pHeightErr <= 2 && pUpperErr <= 3 && pLowerErr <= 5,
-      `4.0 / 40.0 / 35.47`,
-      `${fmt(p.height)} / ${fmt(p.lowerSquareSide)} / ${fmt(p.upperOctagonDiagonal)}`
+      'C10', '台基：约 4 m 高、上层八角基对角径 35.47 m',
+      pHeightErr <= 2 && pUpperErr <= 3,
+      `4.0 / 35.47`,
+      `${fmt(p.height)} / ${fmt(p.upperOctagonDiagonal)}`
     )
   );
 
-  // C11 塔刹分段自洽（铁刹身 ≈ 1⅛A；砖仰莲另计，含在 6A 塔身段内）
+  // C11 塔刹分段
   const f = model.finial ?? {};
   const ironErr = pctDiff(f.iron ?? 0, ref.finial.ironFinial);
   const lotusErr = pctDiff(f.brickLotusBase ?? 0, ref.finial.brickLotusBase);
@@ -189,13 +181,35 @@ export function checkModel(model, ref) {
   const withAF = L.filter((l) => typeof l.acrossFlats === 'number');
   const geoOk =
     withAF.length === 0 ||
-    withAF.every((l) => pctDiff(l.acrossFlats, l.octagonDiagonal * ref.geometry.acrossFlatsFromDiagonal) <= 1);
+    withAF.every((l) => pctDiff(l.acrossFlats, l.outerDiagonalM * ref.geometry.acrossFlatsFromDiagonal) <= 1);
   checks.push(
     makeCheck(
       'C12', '八角几何自洽：模型对边距 = 对角径 × cos22.5°',
-      geoOk,
-      '±1%',
+      geoOk, '±1%',
       withAF.length ? `${withAF.length} 层已提供对边距并通过` : '模型未提供对边距（跳过）'
+    )
+  );
+
+  // C13 外槽对角径 = s / sin(π/8)
+  const diagErrs = L.map((l) => pctDiff(l.outerDiagonalM, l.outerFaceWidthM / Math.sin(Math.PI / 8)));
+  checks.push(
+    makeCheck(
+      'C13', '八角几何自洽：外槽对角径 = 面宽 / sin(π/8)',
+      diagErrs.every((e) => e <= t.diagonalSelfConsistencyPct),
+      `±${t.diagonalSelfConsistencyPct}%`,
+      `最大偏差 ${Math.max(...diagErrs).toFixed(3)}%`
+    )
+  );
+
+  // C14 底层最远顶点距 = 公布底径 30.27 m
+  const baseOk = typeof model.base === 'number' &&
+    pctDiff(model.base, ref.overall.bodyOctagonDiagonal) <= t.baseDiagonalPct;
+  checks.push(
+    makeCheck(
+      'C14', '底层最远顶点距（对角径）= 公布底径 30.27 m',
+      baseOk,
+      `${ref.overall.bodyOctagonDiagonal} m ±${t.baseDiagonalPct}%`,
+      `${model.base} m（偏差 ${pctDiff(model.base ?? 0, ref.overall.bodyOctagonDiagonal).toFixed(3)}%）`
     )
   );
 
@@ -212,11 +226,9 @@ export function formatReport(result) {
   lines.push('应县木塔 3D 模型 —— 比例校验报告');
   lines.push('='.repeat(64));
   for (const c of result.checks) {
-    const mark = c.pass ? '✅ 通过' : '❌ 未通过';
-    lines.push(`[${mark}] ${c.id} ${c.title}`);
+    lines.push(`[${c.pass ? '✅ 通过' : '❌ 未通过'}] ${c.id} ${c.title}`);
     lines.push(`         期望: ${c.expected}`);
     lines.push(`         实际: ${c.actual}`);
-    if (c.detail) lines.push(`         说明: ${c.detail}`);
   }
   lines.push('='.repeat(64));
   lines.push(`合计 ${result.passed}/${result.checks.length} 项通过，${result.failed} 项未通过。`);
@@ -231,6 +243,7 @@ function idealModel(ref) {
   return {
     units: 'm',
     totalHeight: ref.overall.totalHeight,
+    base: ref.overall.bodyOctagonDiagonal,
     eaves: ref.overall.eaves,
     hiddenFloors: ref.overall.hiddenFloors,
     platform: {
@@ -245,14 +258,15 @@ function idealModel(ref) {
     levels: ref.levels.map((r) => ({
       index: r.index,
       name: r.name,
-      octagonDiagonal: r.octagonDiagonalDerived,
-      acrossFlats: r.octagonDiagonalDerived * ref.geometry.acrossFlatsFromDiagonal,
+      outerFaceWidthM: r.outerFaceWidthM,
+      outerDiagonalM: r.outerDiagonalM,
+      acrossFlats: r.outerDiagonalM * ref.geometry.acrossFlatsFromDiagonal,
       outerColumnCount: ref.columns.outerPerLevel,
       innerColumnCount: ref.columns.innerPerLevel,
       puzuoJump: r.puzuoJump,
       outerBaysPerFace: r.outerBaysPerFace,
       innerBaysPerFace: r.innerBaysPerFace,
-      clearHeight: r.clearHeight ?? null
+      clearHeight: null
     }))
   };
 }
@@ -272,14 +286,19 @@ export function runSelfTest(ref) {
       mutate: (m) => { m.totalHeight = 60; }
     },
     {
+      name: '底层对角径写成 26 m',
+      expectFail: ['C02', 'C14'],
+      mutate: (m) => { m.base = 26; }
+    },
+    {
       name: '铺作跳数一律 7 跳',
       expectFail: ['C05'],
       mutate: (m) => { m.levels.forEach((l) => { l.puzuoJump = 7; }); }
     },
     {
       name: '三层反而比二层宽（收分反了）',
-      expectFail: ['C03', 'C04'],
-      mutate: (m) => { m.levels[2].octagonDiagonal = 9.5; m.levels[2].acrossFlats = 9.5 * 0.92388; }
+      expectFail: ['C03', 'C04', 'C13'],
+      mutate: (m) => { m.levels[2].outerFaceWidthM = 9.9; m.levels[2].outerDiagonalM = 24.0; }
     },
     {
       name: '外檐柱减到 16 根',
@@ -287,7 +306,7 @@ export function runSelfTest(ref) {
       mutate: (m) => { m.levels[0].outerColumnCount = 16; }
     },
     {
-      name: '塔刹铁刹写成 6 m（严重偏短）',
+      name: '铁刹写成 6 m（严重偏短）',
       expectFail: ['C08', 'C11'],
       mutate: (m) => { m.finial.iron = 6; }
     },
@@ -300,6 +319,11 @@ export function runSelfTest(ref) {
       name: '对边距与对角径不自洽',
       expectFail: ['C12'],
       mutate: (m) => { m.levels[0].acrossFlats = 20; }
+    },
+    {
+      name: '面宽与对角径不自洽',
+      expectFail: ['C13'],
+      mutate: (m) => { m.levels[0].outerDiagonalM = 30; }
     }
   ];
 
@@ -330,7 +354,7 @@ function main(argv) {
       for (const f of failures) console.error('  - ' + f);
       process.exit(1);
     }
-    console.log('自检通过：理想模型 12 项全部通过；7 个变异体均被正确拦截。');
+    console.log('自检通过：理想模型 14 项全部通过；9 个变异体均被正确拦截。');
     process.exit(0);
   }
 

@@ -1,0 +1,272 @@
+/* ==========================================================================
+   应县木塔 · 实时三维数字展陈
+   色板与量尺取自执行规划 §2.3「设计量尺」：
+   墨字 #222723、辅助字 #626A63、面板 #F2F0E9、分隔线 #B8B6AC、焦点色 #456A5F
+   ========================================================================== */
+
+:root {
+  --ink: #222723;
+  --ink-muted: #626A63;
+  --panel: rgba(242, 240, 233, 0.94);
+  --panel-solid: #F2F0E9;
+  --divider: #B8B6AC;
+  --accent: #456A5F;
+  --sky: #D6D7D2;
+  --shadow: 0 2px 18px rgba(34, 39, 35, 0.14);
+  --radius: 12px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --title-size: 28px;
+}
+
+@media (min-width: 1024px) {
+  :root { --title-size: 40px; }
+}
+@media (min-width: 1600px) {
+  :root { --title-size: 52px; }
+}
+
+* { box-sizing: border-box; }
+
+/* 作者层的 display 会压过 UA 的 [hidden]{display:none}，必须显式兜底 */
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--sky);
+  color: var(--ink);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC",
+               "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { position: fixed; inset: 0; }
+
+.stage { position: absolute; inset: 0; }
+.yx-canvas { display: block; width: 100%; height: 100%; outline: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ── 启动画面 ───────────────────────────────────────────── */
+.boot {
+  position: absolute; inset: 0; z-index: 40;
+  display: grid; place-items: center;
+  background: linear-gradient(180deg, #D6D7D2 0%, #C7CBC6 100%);
+  transition: opacity 0.5s var(--ease);
+}
+.boot.is-hidden { opacity: 0; pointer-events: none; }
+.boot-inner { text-align: center; padding: 2rem; max-width: 30rem; }
+.boot-kicker { margin: 0 0 0.4rem; font-size: 13px; letter-spacing: 0.28em; color: var(--ink-muted); }
+.boot-title { margin: 0; font-size: 46px; font-weight: 600; letter-spacing: 0.12em; }
+.boot-sub { margin: 0.2rem 0 1.6rem; font-size: 15px; color: var(--ink-muted); letter-spacing: 0.2em; }
+.boot-bar { height: 2px; background: rgba(34,39,35,0.14); border-radius: 2px; overflow: hidden; }
+.boot-bar span { display: block; height: 100%; width: 0%; background: var(--accent); transition: width 0.3s var(--ease); }
+.boot-stage { margin: 0.7rem 0 0; font-size: 14px; color: var(--ink-muted); min-height: 1.6em; }
+.boot-note { margin: 2.2rem 0 0; font-size: 12px; color: var(--ink-muted); opacity: 0.85; }
+
+/* ── 标题 ───────────────────────────────────────────────── */
+.yx-title {
+  position: absolute; top: 0; left: 0; z-index: 12;
+  padding: 22px 26px; max-width: 42ch; pointer-events: none;
+}
+.yx-title h1 {
+  margin: 0; font-size: 26px; font-weight: 600; letter-spacing: 0.1em;
+  text-shadow: 0 1px 12px rgba(242,240,233,0.85);
+}
+.yx-title h1 span { font-size: 14px; font-weight: 400; color: var(--ink-muted); margin-left: 0.6em; letter-spacing: 0.08em; }
+.yx-title p {
+  margin: 0.25rem 0 0; font-size: 12.5px; color: var(--ink-muted); letter-spacing: 0.06em;
+  text-shadow: 0 1px 10px rgba(242,240,233,0.8);
+}
+
+/* ── 构件注释卡 ─────────────────────────────────────────── */
+.yx-card {
+  position: absolute; z-index: 12; top: 96px; right: 24px; width: 330px; max-width: calc(100vw - 48px);
+  background: var(--panel); backdrop-filter: blur(10px);
+  border: 1px solid var(--divider); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 16px 18px;
+}
+.yx-card-empty { color: var(--ink-muted); font-size: 13.5px; }
+.yx-card h2 { margin: 0 0 6px; font-size: 17px; font-weight: 600; letter-spacing: 0.04em; }
+.yx-card p { margin: 0 0 10px; font-size: 14px; }
+.yx-card-detail { font-size: 13.5px; color: var(--ink); }
+.yx-terms { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 10px; padding: 0; }
+.yx-terms li {
+  font-size: 11.5px; color: var(--ink-muted); border: 1px solid var(--divider);
+  border-radius: 999px; padding: 1px 9px;
+}
+.yx-evi { font-size: 11.5px; color: var(--ink-muted); margin: 0; }
+.badge { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 4px; margin-right: 6px; }
+.badge--published { background: #DCE6DE; color: #2F4A3B; }
+.badge--academic  { background: #E4E2D2; color: #5A5734; }
+.badge--estimate  { background: #EDE2CE; color: #7A5A22; }
+.badge--unverified{ background: #E6DDD8; color: #6E4A38; }
+
+/* ── 模式 / 光照 ────────────────────────────────────────── */
+.yx-modes {
+  position: absolute; z-index: 12; left: 50%; bottom: 26px; transform: translateX(-50%);
+  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+  background: var(--panel); backdrop-filter: blur(10px);
+  border: 1px solid var(--divider); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 8px 10px;
+}
+.yx-group { display: flex; gap: 4px; }
+.yx-group + .yx-group { border-left: 1px solid var(--divider); padding-left: 14px; }
+
+.yx-btn {
+  font: inherit; font-size: 13.5px; color: var(--ink);
+  background: transparent; border: 1px solid transparent; border-radius: 8px;
+  min-height: 44px; min-width: 44px; padding: 8px 14px; cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.yx-btn:hover { background: rgba(69, 106, 95, 0.1); }
+.yx-btn.is-active { background: var(--accent); color: #F4F2EC; border-color: var(--accent); }
+.yx-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.yx-btn--wide { border-color: var(--divider); }
+
+/* ── 右下控制 ───────────────────────────────────────────── */
+.yx-controls {
+  position: absolute; z-index: 12; right: 24px; bottom: 26px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;
+  background: var(--panel); backdrop-filter: blur(10px);
+  border: 1px solid var(--divider); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 8px 10px; max-width: calc(100vw - 48px);
+}
+.yx-select { display: flex; align-items: center; gap: 6px; }
+.yx-select label { font-size: 12px; color: var(--ink-muted); }
+.yx-select select {
+  font: inherit; font-size: 13px; color: var(--ink);
+  background: transparent; border: 1px solid var(--divider); border-radius: 8px;
+  min-height: 40px; padding: 6px 8px; cursor: pointer;
+}
+.yx-select select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── 左下说明 ───────────────────────────────────────────── */
+.yx-note {
+  position: absolute; z-index: 12; left: 24px; bottom: 26px; margin: 0; max-width: 34ch;
+  font-size: 11.5px; color: var(--ink-muted);
+  background: var(--panel); border: 1px solid var(--divider); border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* ── 楼层 / 热点列表 ────────────────────────────────────── */
+.yx-floors, .yx-hotspots {
+  position: absolute; z-index: 11; list-style: none; margin: 0; padding: 0;
+}
+.yx-floors {
+  left: 24px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.yx-hotspots {
+  right: 24px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 4px; align-items: flex-end;
+}
+.yx-floors button, .yx-hotspots button {
+  font: inherit; font-size: 12.5px; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--divider); border-radius: 8px; min-height: 34px; padding: 5px 11px;
+  cursor: pointer; box-shadow: var(--shadow);
+}
+.yx-floors button:hover, .yx-hotspots button:hover { background: var(--accent); color: #F4F2EC; }
+.yx-floors button:focus-visible, .yx-hotspots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── 窄屏抽屉 ───────────────────────────────────────────── */
+.yx-drawer {
+  position: absolute; z-index: 14; left: 0; right: 0; bottom: 0;
+  max-height: 45vh; overflow-y: auto;
+  background: var(--panel-solid); border-top: 1px solid var(--divider);
+  padding: 16px 18px 26px; box-shadow: 0 -6px 24px rgba(34,39,35,0.16);
+}
+.yx-drawer-close {
+  position: absolute; top: 8px; right: 10px; font: inherit; font-size: 22px; line-height: 1;
+  background: transparent; border: 0; cursor: pointer; color: var(--ink-muted); min-width: 44px; min-height: 44px;
+}
+.yx-drawer h2 { margin: 0 0 6px; font-size: 16px; }
+.yx-drawer p { margin: 0 0 10px; font-size: 13.5px; }
+
+/* ── 弹窗 ───────────────────────────────────────────────── */
+.yx-modal {
+  position: absolute; inset: 0; z-index: 30; display: grid; place-items: center;
+  background: rgba(34, 39, 35, 0.42); padding: 20px;
+}
+.yx-modal-inner {
+  position: relative; background: var(--panel-solid); border-radius: var(--radius);
+  max-width: 44rem; max-height: 82vh; overflow-y: auto; padding: 26px 30px 30px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+}
+.yx-modal h2 { margin: 0 0 14px; font-size: 20px; }
+.yx-modal h3 { margin: 18px 0 6px; font-size: 15px; }
+.yx-modal p, .yx-modal li { font-size: 14px; }
+.yx-modal ul { padding-left: 1.2em; }
+.yx-modal-close {
+  position: absolute; top: 10px; right: 12px; font: inherit; font-size: 22px; line-height: 1;
+  background: transparent; border: 0; cursor: pointer; color: var(--ink-muted); min-width: 44px; min-height: 44px;
+}
+.yx-modal a { color: var(--accent); }
+.yx-src-list { list-style: none; padding: 0; margin: 0; }
+.yx-src-list li { border-top: 1px solid var(--divider); padding: 8px 0; font-size: 13px; }
+.yx-src-list b { display: block; font-weight: 600; }
+.yx-src-list span { color: var(--ink-muted); }
+
+/* ── 遮罩 ───────────────────────────────────────────────── */
+.yx-overlay {
+  position: absolute; inset: 0; z-index: 50; display: grid; place-items: center;
+  background: rgba(214, 215, 210, 0.96); padding: 20px;
+}
+.yx-overlay-inner {
+  background: var(--panel-solid); border-radius: var(--radius); padding: 28px 32px;
+  max-width: 40rem; max-height: 82vh; overflow-y: auto; box-shadow: var(--shadow);
+}
+.yx-overlay h2 { margin: 0 0 8px; font-size: 19px; }
+.yx-overlay-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.yx-overlay-text { margin-top: 18px; font-size: 13.5px; color: var(--ink-muted); }
+.yx-overlay-text h3 { margin: 12px 0 4px; font-size: 14px; color: var(--ink); }
+
+/* ── 性能仪表 ───────────────────────────────────────────── */
+.yx-hud {
+  position: absolute; z-index: 20; left: 24px; top: 96px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.5;
+  background: rgba(34,39,35,0.82); color: #D9E2DC; padding: 8px 10px; border-radius: 8px;
+  white-space: pre; pointer-events: none;
+}
+
+/* ── 响应式 ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .yx-card { display: none; }
+  .yx-title { padding: 14px 16px; max-width: 100%; }
+  .yx-title h1 { font-size: 20px; }
+  .yx-title h1 span { display: block; margin: 2px 0 0; font-size: 12px; }
+  .yx-title p { font-size: 11.5px; }
+  .yx-modes {
+    left: 0; right: 0; bottom: 0; transform: none; border-radius: 0;
+    border-left: 0; border-right: 0; border-bottom: 0;
+    overflow-x: auto; justify-content: flex-start; padding: 8px 12px;
+  }
+  .yx-group + .yx-group { padding-left: 10px; }
+  .yx-controls { right: 12px; bottom: 74px; padding: 6px 8px; gap: 6px; }
+  .yx-note { display: none; }
+  .yx-hotspots { right: 12px; top: auto; bottom: 190px; transform: none; }
+  .yx-floors { left: 12px; top: auto; bottom: 190px; transform: none; }
+  .yx-select label { display: none; }
+}
+
+@media (max-width: 480px) {
+  .yx-title h1 { font-size: 18px; }
+  .yx-controls { bottom: 68px; max-width: calc(100vw - 24px); }
+  .yx-btn { padding: 8px 10px; font-size: 12.5px; }
+}
+
+/* ── 减弱动态效果 ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

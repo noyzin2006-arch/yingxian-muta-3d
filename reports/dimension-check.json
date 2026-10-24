@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-10-24T21:12:32.419Z",
+  "measurementDatum": "totalHeight = 地面至刹顶；base = 底层塔身最远顶点距（对角径）",
+  "rows": [
+    {
+      "id": "M01",
+      "item": "通高（地面至刹顶）",
+      "datum": 67.31,
+      "model": 67.31,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "±1%",
+      "source": "H01/H02/H03",
+      "status": "PASS"
+    },
+    {
+      "id": "M02",
+      "item": "底层最远顶点距（对角径）",
+      "datum": 30.27,
+      "model": 30.27,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "±2%",
+      "source": "H02/H03",
+      "status": "PASS"
+    },
+    {
+      "id": "A03r",
+      "item": "高径比",
+      "datum": 2.224,
+      "model": 2.2237,
+      "absDev": -0.0003,
+      "relDev": 0.0135,
+      "tolerance": "±2%",
+      "source": "派生",
+      "status": "PASS"
+    },
+    {
+      "id": "M11-L1",
+      "item": "第1层外槽柱线面阔（尺值复原）",
+      "datum": 9.5472,
+      "model": 9.5472,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "（模型直接取自尺寸表）",
+      "source": "H04/H05",
+      "status": "PASS"
+    },
+    {
+      "id": "M11-L2",
+      "item": "第2层外槽柱线面阔（尺值复原）",
+      "datum": 9.18,
+      "model": 9.18,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "（模型直接取自尺寸表）",
+      "source": "H04/H05",
+      "status": "PASS"
+    },
+    {
+      "id": "M11-L3",
+      "item": "第3层外槽柱线面阔（尺值复原）",
+      "datum": 8.8128,
+      "model": 8.8128,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "（模型直接取自尺寸表）",
+      "source": "H04/H05",
+      "status": "PASS"
+    },
+    {
+      "id": "M11-L4",
+      "item": "第4层外槽柱线面阔（尺值复原）",
+      "datum": 8.4456,
+      "model": 8.4456,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "（模型直接取自尺寸表）",
+      "source": "H04/H05",
+      "status": "PASS"
+    },
+    {
+      "id": "M11-L5",
+      "item": "第5层外槽柱线面阔（尺值复原）",
+      "datum": 7.956,
+      "model": 7.956,
+      "absDev": 0,
+      "relDev": 0,
+      "tolerance": "（模型直接取自尺寸表）",
+      "source": "H04/H05",
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "pass": 8,
+    "fail": 0
+  },
+  "moduleA": {
+    "A": 8.83,
+    "baseM": 4.415,
+    "bodyAndLotusM": 52.98,
+    "ironFinialM": 9.934,
+    "totalM": 67.329
+  }
+}

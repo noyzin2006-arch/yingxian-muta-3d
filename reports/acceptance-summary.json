@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-10-24T21:15:47.728Z",
+  "A01": {
+    "name": "可运行",
+    "status": "PASS",
+    "evidence": "reports/console-start.txt"
+  },
+  "A02": {
+    "name": "结构真实性",
+    "status": "PASS",
+    "evidence": "5 明层 / 4 暗层 / 6 檐 / 8 角；reports/screenshots/02-south.png"
+  },
+  "A03": {
+    "name": "可核实比例",
+    "status": "PASS",
+    "evidence": "reports/dimension-check.json"
+  },
+  "A04": {
+    "name": "细节",
+    "status": "PASS",
+    "evidence": "reports/screenshots/06-brackets.png、11-detail.png"
+  },
+  "A05": {
+    "name": "斗栱可审计",
+    "status": "PASS",
+    "evidence": "reports/bracket-ledger.json"
+  },
+  "A06": {
+    "name": "外观审美",
+    "status": "PASS",
+    "evidence": "reports/screenshots/01-first-frame.png、09-desktop.png、10-mobile.png"
+  },
+  "A07": {
+    "name": "交互",
+    "status": "PASS",
+    "evidence": "reports/interaction-check.md"
+  },
+  "A08": {
+    "name": "剖面诚实",
+    "status": "PASS",
+    "evidence": "reports/screenshots/04-section.png"
+  },
+  "A09": {
+    "name": "失败/可及性",
+    "status": "PARTIAL",
+    "evidence": "reports/edge-cases.md"
+  },
+  "A10": {
+    "name": "性能",
+    "status": "见 reports/performance.json",
+    "evidence": "reports/performance.json"
+  },
+  "A11": {
+    "name": "中文真实性",
+    "status": "PASS",
+    "evidence": "reports/content-audit.md"
+  },
+  "A12": {
+    "name": "证据交付",
+    "status": "PASS",
+    "evidence": "reports/ + handoff/sflipcloop/execution-report.md"
+  },
+  "consoleErrors": 1,
+  "thirdPartyRequests": 0
+}

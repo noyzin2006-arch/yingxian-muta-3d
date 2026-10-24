@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="应县木塔（佛宫寺释迦塔）实时三维数字展陈 —— 程序化参数化研究性复原" />
+  <meta name="theme-color" content="#D6D7D2" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <title>应县木塔 · 佛宫寺释迦塔 ｜ 实时三维数字展陈</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 三维舞台 -->
+    <div id="stage" class="stage"></div>
+
+    <!-- 启动画面 -->
+    <div id="boot" class="boot" role="status" aria-live="polite">
+      <div class="boot-inner">
+        <p class="boot-kicker">辽 · 清宁二年（1056）</p>
+        <h1 class="boot-title">应县木塔</h1>
+        <p class="boot-sub">佛宫寺释迦塔</p>
+        <div class="boot-bar" aria-hidden="true"><span id="boot-bar-fill"></span></div>
+        <p id="boot-stage" class="boot-stage">正在准备…</p>
+        <p class="boot-note">本页模型由程序化几何生成，属研究性复原，不是官方精测成果。</p>
+      </div>
+    </div>
+
+    <!-- 标题 -->
+    <header class="yx-title" id="yx-title">
+      <h1>应县木塔 <span>佛宫寺释迦塔</span></h1>
+      <p>辽 · 清宁二年（1056） ｜ 研究性数字复原</p>
+    </header>
+
+    <!-- 构件注释卡（宽屏） -->
+    <aside class="yx-card" id="yx-card" aria-label="构件注释">
+      <div class="yx-card-empty" id="card-empty">点选塔身构件，了解结构</div>
+      <div class="yx-card-body" id="card-body" hidden>
+        <h2 id="card-title"></h2>
+        <p id="card-summary"></p>
+        <div id="card-detail"></div>
+        <ul class="yx-terms" id="card-terms"></ul>
+        <p class="yx-evi" id="card-evidence"></p>
+      </div>
+    </aside>
+
+    <!-- 模式与光照 -->
+    <nav class="yx-modes" id="yx-modes" aria-label="显示模式">
+      <div class="yx-group" role="group" aria-label="结构模式">
+        <button type="button" data-view="whole" class="yx-btn is-active" aria-pressed="true">全貌</button>
+        <button type="button" data-view="section" class="yx-btn" aria-pressed="false">结构剖视</button>
+        <button type="button" data-view="exploded" class="yx-btn" aria-pressed="false">逐层</button>
+      </div>
+      <div class="yx-group" role="group" aria-label="光照">
+        <button type="button" data-light="day" class="yx-btn is-active" aria-pressed="true">白昼</button>
+        <button type="button" data-light="sunset" class="yx-btn" aria-pressed="false">夕照</button>
+        <button type="button" data-light="night" class="yx-btn" aria-pressed="false">夜景</button>
+      </div>
+    </nav>
+
+    <!-- 右下控制 -->
+    <div class="yx-controls" id="yx-controls">
+      <button type="button" id="btn-whole" class="yx-btn yx-btn--wide">全塔</button>
+      <div class="yx-select">
+        <label for="sel-view">视角</label>
+        <select id="sel-view" aria-label="选择机位"></select>
+      </div>
+      <div class="yx-select">
+        <label for="sel-quality">画质</label>
+        <select id="sel-quality" aria-label="选择画质">
+          <option value="auto">自动</option>
+          <option value="high">高</option>
+          <option value="standard">中</option>
+          <option value="low">低</option>
+          <option value="safe">极简</option>
+        </select>
+      </div>
+      <button type="button" id="btn-evidence" class="yx-btn">证据与不确定度</button>
+      <button type="button" id="btn-help" class="yx-btn">说明</button>
+    </div>
+
+    <!-- 左下说明 -->
+    <p class="yx-note" id="yx-note">
+      主轮廓：公开高度口径（67.31 m / 底径 30.27 m）｜ 细部：部分示意
+    </p>
+
+    <!-- 楼层列表（剖视时显示） -->
+    <ul class="yx-floors" id="yx-floors" aria-label="楼层结构" hidden></ul>
+
+    <!-- 热点列表（窄屏与键盘可达） -->
+    <ul class="yx-hotspots" id="yx-hotspots" aria-label="构件热点"></ul>
+
+    <!-- 窄屏信息抽屉 -->
+    <div class="yx-drawer" id="yx-drawer" hidden>
+      <button type="button" class="yx-drawer-close" id="drawer-close" aria-label="关闭">×</button>
+      <div id="drawer-body"></div>
+    </div>
+
+    <!-- 证据面板 -->
+    <div class="yx-modal" id="yx-evidence" role="dialog" aria-modal="true" aria-labelledby="evidence-title" hidden>
+      <div class="yx-modal-inner">
+        <button type="button" class="yx-modal-close" data-close-modal aria-label="关闭">×</button>
+        <h2 id="evidence-title">证据与不确定度</h2>
+        <div id="evidence-body"></div>
+      </div>
+    </div>
+
+    <!-- 说明面板 -->
+    <div class="yx-modal" id="yx-help" role="dialog" aria-modal="true" aria-labelledby="help-title" hidden>
+      <div class="yx-modal-inner">
+        <button type="button" class="yx-modal-close" data-close-modal aria-label="关闭">×</button>
+        <h2 id="help-title">说明</h2>
+        <div id="help-body"></div>
+      </div>
+    </div>
+
+    <!-- 失败 / 降级遮罩 -->
+    <div class="yx-overlay" id="yx-overlay" role="alertdialog" aria-modal="true" hidden>
+      <div class="yx-overlay-inner">
+        <h2 id="overlay-title">无法启动三维视图</h2>
+        <p id="overlay-msg"></p>
+        <div class="yx-overlay-actions">
+          <button type="button" id="btn-retry-light" class="yx-btn">重试轻量版</button>
+          <button type="button" id="btn-read-text" class="yx-btn">阅读文字简介</button>
+        </div>
+        <div id="overlay-text" class="yx-overlay-text"></div>
+      </div>
+    </div>
+
+    <!-- 上下文丢失遮罩 -->
+    <div class="yx-overlay" id="yx-ctx" role="alertdialog" aria-modal="true" hidden>
+      <div class="yx-overlay-inner">
+        <h2>图形上下文已丢失</h2>
+        <p>浏览器回收了 WebGL 上下文。正在尝试恢复；若未恢复请刷新页面。</p>
+      </div>
+    </div>
+
+    <!-- 性能仪表（?debug=1） -->
+    <div class="yx-hud" id="yx-hud" hidden></div>
+
+    <!-- 播报区 -->
+    <div id="yx-live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <noscript>
+    <div style="padding:2rem;font-family:system-ui,sans-serif;line-height:1.7">
+      <h1>应县木塔 · 佛宫寺释迦塔</h1>
+      <p>本页是实时三维展示，需要启用 JavaScript 与 WebGL2。</p>
+      <p>应县木塔建于辽清宁二年（1056 年），平面八角，外观五层六檐，明五暗四共九层，通高约 67.31 米，
+        底层直径约 30.27 米，是现存世界最高、最古老的木构楼阁式塔式建筑。</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

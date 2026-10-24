@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-10-24T21:12:32.419Z",
+  "model": {
+    "totalSets": 352,
+    "distinctGeometryClasses": 33,
+    "floors": [
+      {
+        "floor": 1,
+        "total": 96,
+        "byRing": {
+          "outer": 32,
+          "inner": 32,
+          "secondary": 32
+        },
+        "byKind": {
+          "corner": 48,
+          "intermediate": 48
+        },
+        "distinctTypes": 9
+      },
+      {
+        "floor": 2,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      },
+      {
+        "floor": 3,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      },
+      {
+        "floor": 4,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      },
+      {
+        "floor": 5,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      }
+    ],
+    "literature": {
+      "types": 54,
+      "sets": 480,
+      "sourceId": "H03"
+    },
+    "note": "「54 种」是斗栱形制种类数，「480 朵」是文献对朵数的统计口径；本模型的实例数与几何类别数由台账实算，不等同于文献数字。"
+  },
+  "literature": {
+    "types": 54,
+    "sets": 480,
+    "sourceId": "H03"
+  },
+  "explanation": "「54 种」是斗栱形制种类数，「480 朵」是 2018 年中国土木工程学会文献对朵数的统计口径。本模型的铺作实例数与几何类别数由台账实算得到，与文献数字并列陈述，不宣称精确重现 480 朵。",
+  "perFloor": [
+    {
+      "level": 1,
+      "puzuoJump": {
+        "floor": 1,
+        "total": 96,
+        "byRing": {
+          "outer": 32,
+          "inner": 32,
+          "secondary": 32
+        },
+        "byKind": {
+          "corner": 48,
+          "intermediate": 48
+        },
+        "distinctTypes": 9
+      }
+    },
+    {
+      "level": 2,
+      "puzuoJump": {
+        "floor": 2,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      }
+    },
+    {
+      "level": 3,
+      "puzuoJump": {
+        "floor": 3,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      }
+    },
+    {
+      "level": 4,
+      "puzuoJump": {
+        "floor": 4,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      }
+    },
+    {
+      "level": 5,
+      "puzuoJump": {
+        "floor": 5,
+        "total": 64,
+        "byRing": {
+          "outer": 32,
+          "inner": 32
+        },
+        "byKind": {
+          "corner": 32,
+          "intermediate": 32
+        },
+        "distinctTypes": 6
+      }
+    }
+  ]
+}

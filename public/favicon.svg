@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="应县木塔">
+  <rect width="64" height="64" rx="12" fill="#D6D7D2"/>
+  <g fill="#47362D">
+    <path d="M27 44h10v6H27z"/>
+    <path d="M24 38h16v5H24z"/>
+    <path d="M21 31h22v6H21z"/>
+    <path d="M18 24h28v6H18z"/>
+    <path d="M15 16h34v7H15z"/>
+    <path d="M31 6h2v10h-2z"/>
+    <circle cx="32" cy="5" r="2.2"/>
+  </g>
+  <g fill="#3B4245">
+    <path d="M12 14l20-6 20 6-20 2z"/>
+    <path d="M16 22l16-5 16 5-16 2z"/>
+    <path d="M19 30l13-4 13 4-13 1.6z"/>
+    <path d="M22 37l10-3 10 3-10 1.3z"/>
+    <path d="M24 43l8-2.4 8 2.4-8 1z"/>
+  </g>
+  <rect x="12" y="49" width="40" height="6" rx="1" fill="#A6A298"/>
+</svg>
