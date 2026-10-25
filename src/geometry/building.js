@@ -44,9 +44,17 @@ function grainVertical(geometry) {
   return geometry;
 }
 
-const nextFrame = () => new Promise((r) => {
-  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => r());
-  else setTimeout(r, 0);
+/**
+ * 让出一帧，让浏览器有机会绘制启动画面。
+ * 规划 §4.1 要求「requestIdleCallback（不支持则 setTimeout(0)）」分片；
+ * 这里再让 rAF 与定时器**竞速**：某些环境（后台标签页、离屏渲染器）会把
+ * rAF 节流到 1 Hz，若只等 rAF，整个构建会被拖成十几秒。
+ */
+const nextFrame = () => new Promise((resolve) => {
+  let settled = false;
+  const finish = () => { if (!settled) { settled = true; resolve(); } };
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(finish);
+  setTimeout(finish, 16);
 });
 
 /**
