@@ -81,12 +81,11 @@ export function makeLingGong({ length = 1.0, width = 0.257, height = 0.153, wing
     [-w * 1.55, height * 0.72],
     [-w, height * (1 - wing * 0.5)]
   ];
-  // 翼形栱：截面在 XY（宽 = X，高 = Y），沿 Z 拉伸后转到沿 X
-  const shape = new THREE.Shape(profile.map(([u, v]) => new THREE.Vector2(u, v)));
-  const geo = new THREE.ExtrudeGeometry(shape, { depth: length, bevelEnabled: false, curveSegments: 1 });
-  geo.rotateY(Math.PI / 2);
+  // 翼形栱：截面在 (宽=Z, 高=Y) 平面，沿 X 拉伸。
+  // 用 extrudeProfile 而非 ExtrudeGeometry，是为了保持**索引几何**——
+  // 合并时不会触发全体转非索引（顶点数 ×3、内存与耗时暴涨）。
+  const geo = extrudeProfile(profile, { length, axis: 'x' });
   geo.translate(-length / 2, 0, 0);
-  geo.computeVertexNormals();
   return geo;
 }
 

@@ -170,11 +170,15 @@ export async function connect(wsUrl) {
       return r.result?.value;
     },
 
-    /** 导航并等待 load */
-    async goto(url, { timeout = 60_000 } = {}) {
+    /**
+     * 导航。
+     * 注意：不要无限等 load 事件 —— 页面若在主线程上做重活，load 会推迟很久，
+     * 反而掩盖真实耗时。这里最多等 waitMs，其后交给调用方自行轮询就绪状态。
+     */
+    async goto(url, { waitMs = 1500 } = {}) {
       const loaded = new Promise((resolve) => {
-        const off = on('Page.loadEventFired', () => { off(); resolve(); });
-        setTimeout(() => { off(); resolve(); }, timeout);
+        const off = on('Page.loadEventFired', () => { off(); resolve(true); });
+        setTimeout(() => { off(); resolve(false); }, waitMs);
       });
       await send('Page.navigate', { url });
       await loaded;
