@@ -29,7 +29,10 @@ import { SITE, UI_STRINGS, HOTSPOTS } from './data/content.zh.js';
 import { LEVELS, MODULE_A } from './data/dimensions.js';
 
 const params = new URLSearchParams(location.search);
+// 调试接口：开发环境或 ?debug=1 都可用（规划 §S10）
 const DEBUG = params.get('debug') === '1' || import.meta.env?.DEV;
+// 屏幕上的性能仪表：只在显式 ?debug=1 时显示，避免污染正式观感
+const SHOW_HUD = params.get('debug') === '1';
 
 const store = createStore();
 const a11y = createA11y(document.getElementById('yx-live'));
@@ -92,7 +95,7 @@ async function boot() {
     composer,
     onChange: (key, profile) => {
       composer.setEnabled(profile.ssao || profile.smaa, profile);
-      ui.setHud(DEBUG ? `画质档：${profile.label}（${key}）` : null);
+      ui.setHud(SHOW_HUD ? `画质档：${profile.label}（${key}）` : null);
     }
   });
 
@@ -296,9 +299,9 @@ async function boot() {
     stage.renderer.info.reset();
     composer.render(dt);
 
-    if (DEBUG) updateHud();
+    if (SHOW_HUD) updateHud();
     frameCount++;
-    if (DEBUG && frameCount % 300 === 0) {
+    if (SHOW_HUD && frameCount % 300 === 0) {
       console.info('[YX] frame', frameCount, JSON.stringify(frameStats.snapshot()));
     }
   }
