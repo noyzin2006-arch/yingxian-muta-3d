@@ -11,6 +11,7 @@
 
 import * as THREE from 'three';
 import { EST } from '../data/structure.js';
+import { offsetPolygon } from './math-octagon.js';
 
 /** 相轮：若干圆盘叠置 */
 function makeXianglun(radius, height, rings) {
@@ -61,7 +62,11 @@ export function buildFinial(structure) {
   for (let i = 0; i < F.segments.length; i++) {
     const seg = F.segments[i];
     if (seg.name === '相轮') {
-      iron.push(...makeXianglun(seg.radius, seg.height, seg.rings));
+      // 注意：makeXianglun 生成的是从 y=0 起算的局部几何，必须平移到当前段标高，
+      // 否则相轮会掉到地面（这会让塔刹看起来「飘在空中」）。
+      const rings = makeXianglun(seg.radius, seg.height, seg.rings);
+      rings.forEach((g) => g.translate(0, y, 0));
+      iron.push(...rings);
     } else if (seg.name === '宝珠') {
       const stalk = new THREE.CylinderGeometry(seg.radius * 0.16, seg.radius * 0.22, seg.height * 0.62, 10);
       stalk.translate(0, y + seg.height * 0.31, 0);
@@ -105,25 +110,61 @@ export function buildFinial(structure) {
     y += seg.height;
   }
 
-  // ── 八条铁链：自刹杆斜向八条垂脊末端
-  const chainLen = 9.5;
-  for (let k = 0; k < F.chains; k++) {
-    const a = Math.PI / 8 + (k * Math.PI) / 4;
-    const top = new THREE.Vector3(0, F.y0 + 1.4, 0);
-    const bottom = new THREE.Vector3(
-      Math.cos(a) * 10.2,
-      F.y0 - 1.55,
-      Math.sin(a) * 10.2
-    );
-    const dir = new THREE.Vector3().subVectors(bottom, top);
-    const len = dir.length();
-    const g = new THREE.CylinderGeometry(0.014, 0.014, len, 5);
-    const quat = new THREE.Quaternion().setFromUnitVectors(
-      new THREE.Vector3(0, 1, 0), dir.clone().normalize()
-    );
-    g.applyQuaternion(quat);
-    g.translate((top.x + bottom.x) / 2, (top.y + bottom.y) / 2, (top.z + bottom.z) / 2);
-    iron.push(g);
+  // ── 八条铁链：自宝顶平台的覆钵底，斜向八条垂脊下端
+  //
+  // 依据朔州地方志「刹下砖砌莲台式基座，8 条铁链系于戗脊下端」。
+  //
+  // 关键：链必须**沿垂脊的举折曲线**走，并在两端真正接住构件——
+  //   下端 = 垂脊末端（攒尖顶的檐角），上端 = 宝顶平台上的覆钵底。
+  // 若把下端悬在半空（早期实现取半径 10.2 m、y = 刹座下 1.55 m），
+  // 链就成了掠过屋面的悬丝，远看像「塔冠飘在空中」。
+  {
+    const apexEave = structure.eaves.find((e) => e.isApex);
+    if (apexEave) {
+      const E = offsetPolygon(apexEave.ring, apexEave.offset);   // 檐口环（8 个角）
+      const platformR = apexEave.apexPlatformRadius ?? 1.45;     // 宝顶平台半径
+      const apexY = apexEave.apexY;
+      const upturn = EST.roof.eaveUpturnMax;                     // 角部起翘
+      const STEPS = 8;
+
+      for (let k = 0; k < F.chains; k++) {
+        const corner = E[k];                                     // 垂脊下端（檐角）
+        const eaveCornerY = apexEave.y + upturn;
+        const inner = new THREE.Vector3(corner.x, apexY, corner.z);
+        const scale = platformR / (Math.hypot(corner.x, corner.z) || 1);
+        const top = new THREE.Vector3(corner.x * scale, apexY, corner.z * scale);
+
+        // 沿举折曲线（f01 = 0.62t + 0.38t²，与屋面同一条剖面）逐段生成细链
+        let prev = null;
+        for (let s = 0; s <= STEPS; s++) {
+          const t = s / STEPS;
+          const f01 = 0.62 * t + 0.38 * t * t;
+          const x = corner.x + (top.x - corner.x) * t;
+          const z = corner.z + (top.z - corner.z) * t;
+          const ySurface = eaveCornerY + (apexY - eaveCornerY) * f01 + 0.03 * Math.sin(Math.PI * t);
+          // 贴脊：下端坐在垂脊脊身上（脊身顶面 ≈ 曲面 +0.23），上端收到覆钵底
+          const lift = 0.25 * (1 - t) + 0.02 * t;
+          const p = new THREE.Vector3(x, ySurface + lift, z);
+          if (prev) {
+            const dir = new THREE.Vector3().subVectors(p, prev);
+            const len = dir.length();
+            if (len > 1e-4) {
+              const g = new THREE.CylinderGeometry(0.014, 0.014, len, 5);
+              const quat = new THREE.Quaternion().setFromUnitVectors(
+                new THREE.Vector3(0, 1, 0), dir.clone().normalize()
+              );
+              g.applyQuaternion(quat);
+              g.translate(
+                (prev.x + p.x) / 2, (prev.y + p.y) / 2, (prev.z + p.z) / 2
+              );
+              iron.push(g);
+            }
+          }
+          prev = p;
+        }
+        void inner;
+      }
+    }
   }
 
   return { iron, brick };

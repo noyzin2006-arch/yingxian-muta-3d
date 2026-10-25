@@ -16,6 +16,8 @@
  */
 
 /** 规划 §5.4：八个外立面面心方位 */
+import { CONTINUITY_BANDS } from '../data/continuity-estimates.js';
+
 export const VIEW_AZIMUTHS = Object.freeze([
   Math.PI / 8, (Math.PI * 3) / 8, (Math.PI * 5) / 8, (Math.PI * 7) / 8,
   (Math.PI * 9) / 8, (Math.PI * 11) / 8, (Math.PI * 13) / 8, (Math.PI * 15) / 8
@@ -57,6 +59,29 @@ function bboxIntersectsRadialBand(bbox, y, r0, r1, facePoint) {
 }
 
 /**
+ * 把不同来源的记录统一成 {bbox:{min,max}, y0, y1} 形式。
+ * 既有柱记录只有 x/z/radius/y0/y1，按轴对齐盒补出包围盒。
+ */
+function normalizeRecords(records) {
+  const out = [];
+  for (const r of records) {
+    let bbox = r.bbox;
+    if (!bbox && typeof r.x === 'number' && typeof r.z === 'number') {
+      const rad = r.radius ?? 0.3;
+      const y0 = r.y0 ?? -Infinity;
+      const y1 = r.y1 ?? Infinity;
+      bbox = {
+        min: [r.x - rad, Number.isFinite(y0) ? y0 : -1e6, r.z - rad],
+        max: [r.x + rad, Number.isFinite(y1) ? y1 : 1e6, r.z + rad]
+      };
+    }
+    if (!bbox) continue;
+    out.push({ ...r, bbox });
+  }
+  return out;
+}
+
+/**
  * 分析连续度。
  *
  * @param {object} opts
@@ -68,7 +93,7 @@ function bboxIntersectsRadialBand(bbox, y, r0, r1, facePoint) {
  * @returns {object}
  */
 export function analyzeContinuity(opts = {}) {
-  const records = opts.records ?? [];
+  const records = normalizeRecords(opts.records ?? []);
   const structure = opts.structure;
   const stepM = opts.stepM ?? 0.1;
   const views = opts.views ?? VIEW_AZIMUTHS;
@@ -86,27 +111,21 @@ export function analyzeContinuity(opts = {}) {
     };
   }
 
-  // 按 band 归类
-  const byBand = new Map();
-  for (const r of records) {
-    if (!byBand.has(r.bandId)) byBand.set(r.bandId, []);
-    byBand.get(r.bandId).push(r);
-  }
-
-  const bandIds = opts.bands ?? [...byBand.keys()].sort();
+  // 带定义（显式给出，不由记录反推）
+  const bandDefs = opts.bands ?? CONTINUITY_BANDS;
   const perBand = [];
   const perView = [];
   const failRanges = [];
 
-  for (const bandId of bandIds) {
-    const bandRecords = byBand.get(bandId) ?? [];
+  for (const bandDef of bandDefs) {
+    const bandId = bandDef.id;
+    const bandRecords = records;
     if (!bandRecords.length) {
-      failRanges.push({ bandId, reason: '该带没有构件记录' });
+      failRanges.push({ bandId, reason: '没有构件记录' });
       continue;
     }
-    const band = bandRecords[0];
-    const y0 = Math.min(...bandRecords.map((r) => r.y0));
-    const y1 = Math.max(...bandRecords.map((r) => r.y1));
+    const y0 = bandDef.y0;
+    const y1 = bandDef.y1;
 
     const bandViewStats = [];
     for (let vi = 0; vi < views.length; vi++) {
@@ -116,8 +135,8 @@ export function analyzeContinuity(opts = {}) {
       const faceIndex = vi % 8;
 
       // 取该带所属层的柱网，确定面上采样点
-      const lower = structure.levels[(band.lowerLevel ?? 1) - 1];
-      const upper = structure.levels[(band.upperLevel ?? band.lowerLevel ?? 1) - 1];
+      const lower = structure.levels[(bandDef.lowerLevel ?? 1) - 1];
+      const upper = structure.levels[(bandDef.upperLevel ?? bandDef.lowerLevel ?? 1) - 1];
       if (!lower) continue;
       const ringAt = (t) => lower.outer.vertices.map((p, i) => {
         const q = upper?.outer.vertices?.[i] ?? p;
@@ -199,6 +218,7 @@ export function analyzeContinuity(opts = {}) {
     perBand.push({
       bandId, y0: +y0.toFixed(3), y1: +y1.toFixed(3),
       records: bandRecords.length,
+      ownerGroup: bandDef.ownerGroup ?? null,
       maxBlankRunM: +worstBlank.toFixed(3),
       minCenterOccupancy: Number.isFinite(worstOcc) ? +worstOcc.toFixed(4) : 0,
       pass: worstBlank <= MAX_BLANK_RUN_M && worstOcc >= MIN_CENTER_OCCUPANCY,

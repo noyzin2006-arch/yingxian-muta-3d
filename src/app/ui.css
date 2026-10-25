@@ -16,6 +16,56 @@
   --radius: 12px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --title-size: 28px;
+
+  /* ── 规划 §3.1 令牌单源（增量）─────────────────────────────
+     本项目现有界面是**浅色**主题（--panel / --sky）。规划 §3.1 给出的
+     背景/文字十六进制值属于一套**深色**主题；按规划 §3「本轮增量，不推翻现有页面」
+     与「禁止顺手改全站配色」，此处把规划要求的令牌**名**与层级落进同一处 :root，
+     取值改为与现有浅色主题等对比度的对应档位。--mat-* 沿用规划原值（仅用于新增估算构件）。 */
+  --bg-0: #F2F0E9;          /* 面板底 */
+  --bg-1: #EAE7DC;
+  --bg-2: #E0DCCF;
+  --bg-3: #D3CFC0;          /* 悬停 */
+  --fg-main: #222723;        /* 正文，对 --bg-0 约 13.9:1 */
+  --fg-secondary: #4A514C;   /* 辅助，对 --bg-0 约 7.6:1 */
+  --fg-weak: #6B716B;        /* 非禁用次标，对 --bg-0 约 4.7:1 */
+  --fg-inverse: #F2F0E9;
+  --fg-disabled: #8A8F8A;    /* 对 --bg-1 约 3.1:1 */
+  --accent-bright: #2F5A4E;  /* 键盘焦点环，对 --bg-0 约 7.3:1 */
+  --ok: #2F7D5B;
+  --warn: #8A5A12;          /* 待核实 */
+  --danger: #A3322A;
+  --info: #2E6A8E;
+  --stroke-strong: #6E756E;  /* 可交互控件边界，对 --bg-0 约 4.6:1 */
+  --stroke-soft: #C9C5B8;    /* 仅非交互分隔 */
+
+  --text-xs: 12px;  --text-sm: 14px;  --text-md: 16px;
+  --text-lg: 20px;  --text-xl: 25px;  --text-2xl: 31px;
+  --lh-xs: 18px; --lh-sm: 21px; --lh-md: 26px; --lh-lg: 26px; --lh-xl: 31px; --lh-2xl: 38px;
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-pill: 999px;
+
+  --shadow-0: none;
+  --shadow-1: 0 2px 8px rgba(0,0,0,0.16);
+  --shadow-2: 0 8px 24px rgba(0,0,0,0.24);
+  --shadow-3: 0 16px 40px rgba(0,0,0,0.32);
+  --shadow-4: 0 24px 64px rgba(0,0,0,0.40);
+
+  --z-scene: 0; --z-hud: 10; --z-menu: 20; --z-dialog: 30; --z-toast: 40;
+
+  --t-micro: 100ms; --t-state: 180ms; --t-enter: 260ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* 新增估算构件的材质色（仅新增结构，走 makeWoodMaterial 出口） */
+  --mat-frame: #553A2B;
+  --mat-beam:  #624533;
+  --mat-brace: #493224;
+  --mat-shadow:#261D1B;
+  --mat-roof:  #434E49;
 }
 
 @media (min-width: 1024px) {
@@ -102,7 +152,23 @@ html, body {
   font-size: 11.5px; color: var(--ink-muted); border: 1px solid var(--divider);
   border-radius: 999px; padding: 1px 9px;
 }
-.yx-evi { font-size: 11.5px; color: var(--ink-muted); margin: 0; }
+.yx-evi { font-size: 11.5px; color: var(--fg-secondary); margin: 0; }
+
+/* C04 估算构件标签：随说明出现，不逐木块浮动 */
+.yx-badge {
+  display: inline-flex; align-items: center; gap: var(--s1);
+  height: 24px; padding: 0 var(--s2); margin: 0 var(--s2) var(--s2) 0;
+  font-size: var(--text-xs); line-height: var(--lh-xs);
+  color: var(--warn); background: #F3E7CE;
+  border: 1px solid #D9C49A; border-radius: var(--r-xs);
+  vertical-align: middle;
+}
+.yx-badge--info { color: var(--info); background: #E1EDF6; border-color: #B4CFE3; }
+.yx-note-est {
+  margin: var(--s2) 0 0; font-size: 12.5px; line-height: var(--lh-sm);
+  color: var(--fg-secondary);
+  border-left: 2px solid var(--warn); padding-left: var(--s2);
+}
 .badge { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 4px; margin-right: 6px; }
 .badge--published { background: #DCE6DE; color: #2F4A3B; }
 .badge--academic  { background: #E4E2D2; color: #5A5734; }
@@ -128,7 +194,7 @@ html, body {
 }
 .yx-btn:hover { background: rgba(69, 106, 95, 0.1); }
 .yx-btn.is-active { background: var(--accent); color: #F4F2EC; border-color: var(--accent); }
-.yx-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.yx-btn:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
 .yx-btn--wide { border-color: var(--divider); }
 
 /* ── 右下控制 ───────────────────────────────────────────── */
@@ -144,9 +210,9 @@ html, body {
 .yx-select select {
   font: inherit; font-size: 13px; color: var(--ink);
   background: transparent; border: 1px solid var(--divider); border-radius: 8px;
-  min-height: 40px; padding: 6px 8px; cursor: pointer;
+  min-height: 44px; padding: 6px 8px; cursor: pointer;
 }
-.yx-select select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.yx-select select:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
 
 /* ── 左下说明 ───────────────────────────────────────────── */
 .yx-note {
@@ -170,11 +236,11 @@ html, body {
 }
 .yx-floors button, .yx-hotspots button {
   font: inherit; font-size: 12.5px; color: var(--ink); background: var(--panel);
-  border: 1px solid var(--divider); border-radius: 8px; min-height: 34px; padding: 5px 11px;
+  border: 1px solid var(--divider); border-radius: 8px; min-height: 44px; padding: 5px 11px;
   cursor: pointer; box-shadow: var(--shadow);
 }
 .yx-floors button:hover, .yx-hotspots button:hover { background: var(--accent); color: #F4F2EC; }
-.yx-floors button:focus-visible, .yx-hotspots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.yx-floors button:focus-visible, .yx-hotspots button:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
 
 /* ── 窄屏抽屉 ───────────────────────────────────────────── */
 .yx-drawer {
@@ -206,8 +272,9 @@ html, body {
 .yx-modal ul { padding-left: 1.2em; }
 .yx-modal-close {
   position: absolute; top: 10px; right: 12px; font: inherit; font-size: 22px; line-height: 1;
-  background: transparent; border: 0; cursor: pointer; color: var(--ink-muted); min-width: 44px; min-height: 44px;
+  background: transparent; border: 0; cursor: pointer; color: var(--fg-secondary); min-width: 44px; min-height: 44px;
 }
+.yx-modal-close:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
 .yx-modal a { color: var(--accent); }
 .yx-src-list { list-style: none; padding: 0; margin: 0; }
 .yx-src-list li { border-top: 1px solid var(--divider); padding: 8px 0; font-size: 13px; }
@@ -260,7 +327,7 @@ html, body {
     gap: 8px; -webkit-overflow-scrolling: touch;
   }
   .yx-group + .yx-group { padding-left: 8px; }
-  .yx-btn { min-height: 42px; padding: 7px 11px; font-size: 13px; }
+  .yx-btn { min-height: 44px; padding: 7px 11px; font-size: 13px; }
 
   /* 控制条：单行可横滑，放在模式条上方 */
   .yx-controls {
@@ -270,8 +337,8 @@ html, body {
     background: rgba(242,240,233,0.9);
   }
   .yx-select label { display: none; }
-  .yx-select select { min-height: 38px; padding: 4px 6px; font-size: 12.5px; }
-  .yx-controls .yx-btn { min-height: 38px; padding: 5px 10px; font-size: 12.5px; white-space: nowrap; }
+  .yx-select select { min-height: 44px; padding: 4px 6px; font-size: 12.5px; }
+  .yx-controls .yx-btn { min-height: 44px; padding: 5px 10px; font-size: 12.5px; white-space: nowrap; }
 
   /* 楼层与热点：改为底部横向可滑动的两行，避免压住画面中部 */
   .yx-floors, .yx-hotspots {
@@ -282,7 +349,7 @@ html, body {
   .yx-floors { bottom: 96px; }
   .yx-hotspots { bottom: 134px; }
   .yx-floors button, .yx-hotspots button {
-    min-height: 32px; padding: 4px 10px; font-size: 12px; white-space: nowrap; flex: 0 0 auto;
+    min-height: 44px; padding: 4px 10px; font-size: 12px; white-space: nowrap; flex: 0 0 auto;
   }
 
   .yx-note { display: none; }

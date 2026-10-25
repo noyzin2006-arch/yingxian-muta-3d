@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-10-25",
+  "task": "MUTA-R2-001",
+  "baselineSha": "e0638b54",
+  "currentSha": "d741a641133c0b647ffe56e610ae379c74d9edcb",
+  "branch": "main",
+  "environment": {
+    "os": "macOS 15 (darwin 25.4.0) arm64",
+    "gpu": "Apple M5 Max (Metal 4)",
+    "node": "v26.0.0",
+    "npm": "11.12.1",
+    "browser": "Google Chrome 155",
+    "viewport": "1920x1080 @ DPR1（八向立面用 700x1080 @ DPR1，近正交 fov 24.2 / 距离 180）",
+    "three": "0.186.1",
+    "vite": "8.3.5"
+  },
+  "lockedValues": {
+    "M01_totalHeight_m": 67.31,
+    "M02_baseDiagonal_m": 30.27,
+    "M11_outerFaceWidth_m": [
+      9.5472,
+      9.18,
+      8.8128,
+      8.4456,
+      7.956
+    ],
+    "M11_outerDiagonal_m": [
+      24.95,
+      23.99,
+      23.03,
+      22.07,
+      20.79
+    ],
+    "columns_outerPerLevel": 24,
+    "columns_innerPerLevel": 8,
+    "columns_groundTotal": 56,
+    "puzuoJumps": [
+      7,
+      7,
+      6,
+      5,
+      4
+    ],
+    "dougongTypes": 54,
+    "platformHeight_m": 4.0,
+    "squareBaseSide_m": 33,
+    "eaveY": [
+      10.5,
+      16.0,
+      25.0,
+      34.5,
+      44.0,
+      54.1
+    ],
+    "apexY": 57.31,
+    "finialTopY": 67.31,
+    "moduleA": {
+      "A": 8.83,
+      "base": 4.415,
+      "bodyAndLotus": 52.98,
+      "ironFinial": 9.934,
+      "total": 67.329
+    }
+  },
+  "measuredWallTops_m": {
+    "1": 11.194,
+    "2": 21.554,
+    "3": 30.952,
+    "4": 40.486,
+    "5": 50.348
+  },
+  "structureCounts": {
+    "levels": 5,
+    "hiddenFloors": 4,
+    "eaves": 6,
+    "bracketSets": 352,
+    "bracketClasses": 33,
+    "statues": 26,
+    "plaques": 4
+  },
+  "gapsBeforeFix": {
+    "interLevelClear_m": {
+      "L1": 4.5,
+      "L2": 2.8,
+      "L3": 3.0,
+      "L4": 2.9,
+      "L5": 5.31
+    },
+    "L1_fullyEmpty_m": 2.3,
+    "wallTopToEave_m": {
+      "L1": 3.5,
+      "L2": 1.6,
+      "L3": 1.7,
+      "L4": 1.7
+    }
+  },
+  "knownDefectsFound": [
+    {
+      "id": "FIN-01",
+      "where": "src/geometry/finial.js",
+      "symptom": "相轮（塔刹五重圆盘）漏了 translate，被放在地面 y≈0.08；塔顶只剩宝盖+宝珠悬在空中，相轮看不见",
+      "impact": "全貌机位下塔刹整体「飘」在屋顶上方 —— 这是「悬空感」最直接的一处成因",
+      "fix": "makeXianglun 结果平移到当前段标高；修复后铁刹包围盒 55.75→67.32 m，与攒尖顶 57.31 m 相接"
+    }
+  ]
+}

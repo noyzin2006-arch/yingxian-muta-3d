@@ -32,6 +32,7 @@ export function createUI(handlers = {}) {
     cardSummary: $('card-summary'),
     cardDetail: $('card-detail'),
     cardTerms: $('card-terms'),
+    cardEstimate: $('card-estimate'),
     cardEvidence: $('card-evidence'),
     modes: $('yx-modes'),
     controls: $('yx-controls'),
@@ -169,6 +170,12 @@ export function createUI(handlers = {}) {
     `;
   }
 
+  // 规划 C04：哪些构件说明里含有本轮新增的**估算**构件（暗层过渡构架 / 檐下承托）
+  const ESTIMATED_HOTSPOTS = {
+    hiddenFloor: '暗层构架：估算示意，非原样实测',
+    brackets: '檐下承托与过渡枋：估算示意，非原样实测'
+  };
+
   function renderCard(hotspotId) {
     const h = HOTSPOTS.find((x) => x.id === hotspotId);
     if (!h) {
@@ -178,10 +185,16 @@ export function createUI(handlers = {}) {
     }
     el.cardEmpty.hidden = true;
     el.cardBody.hidden = false;
-    el.cardTitle.textContent = h.name;
+    const estNote = ESTIMATED_HOTSPOTS[h.id];
+    el.cardTitle.innerHTML = estNote
+      ? `${h.name} <span class="yx-badge" title="本轮新增的构件为程序化估算，非实测数据">估算构件·待核实</span>`
+      : h.name;
     el.cardSummary.textContent = h.summary;
     el.cardDetail.textContent = h.detail;
     el.cardTerms.innerHTML = (h.terms ?? []).map((t) => `<li>${t}</li>`).join('');
+    el.cardEstimate.innerHTML = estNote
+      ? `<p class="yx-note-est">${estNote}。塔高 67.31 m、底径 30.27 m、逐层面宽与铺作跳数仍为已核实值，未作改动。</p>`
+      : '';
     const ev = h.evidence ?? {};
     const srcText = (ev.sourceIds ?? []).map((id) => getSource(id)?.title ?? id).join('；');
     el.cardEvidence.innerHTML =
@@ -192,10 +205,12 @@ export function createUI(handlers = {}) {
   function renderDrawer(hotspotId) {
     const h = HOTSPOTS.find((x) => x.id === hotspotId);
     if (!h) { el.drawer.hidden = true; return; }
+    const estNote = ESTIMATED_HOTSPOTS[h.id];
     el.drawerBody.innerHTML = `
-      <h2>${h.name}</h2>
+      <h2>${h.name}${estNote ? ' <span class="yx-badge">估算构件·待核实</span>' : ''}</h2>
       <p>${h.summary}</p>
       <p>${h.detail}</p>
+      ${estNote ? `<p class="yx-note-est">${estNote}。</p>` : ''}
       <p class="yx-evi"><span class="badge badge--${h.evidence?.certainty ?? 'unverified'}">${CERTAINTY_TEXT[h.evidence?.certainty] ?? '待核实'}</span>来源：${(h.evidence?.sourceIds ?? []).map((id) => getSource(id)?.title ?? id).join('；') || '待核实'}</p>
     `;
     el.drawer.hidden = false;

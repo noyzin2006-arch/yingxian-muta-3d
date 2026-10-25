@@ -368,7 +368,9 @@ writeFileSync('reports/console-start.txt',
 const summary = {
   generatedAt: new Date().toISOString(),
   A01: { name: '可运行', status: build.ready === 'ready' ? 'PASS' : 'FAIL', evidence: 'reports/console-start.txt' },
-  A02: { name: '结构真实性', status: build.counts.floors === 5 && build.dims.levels.length === 5 ? 'PASS' : 'FAIL',
+  A02: { name: '结构真实性', status: (build.counts.brightFloors === 5 && build.counts.hiddenFloors === 4
+          && build.dims.levels.length === 5 && build.counts.eaves === 6
+          && build.counts.groundColumns === 56) ? 'PASS' : 'FAIL',
          evidence: '5 明层 / 4 暗层 / 6 檐 / 8 角；reports/screenshots/02-south.png' },
   A03: { name: '可核实比例', status: dimensionCheck.summary.fail === 0 ? 'PASS' : 'FAIL', evidence: 'reports/dimension-check.json' },
   A04: { name: '细节', status: 'PASS', evidence: 'reports/screenshots/06-brackets.png、11-detail.png' },

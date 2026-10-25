@@ -1,0 +1,363 @@
+{
+  "method": "ray-triangle intersection against real structural geometry (Möller–Trumbore, two-stage AABB prefilter)",
+  "depthDatum": "wall",
+  "generatedAt": "2026-10-25T04:54:22.118Z",
+  "pieceCount": 5486,
+  "triangleCount": 150848,
+  "thresholds": {
+    "maxBlankRunM": 0.8,
+    "minCenterOccupancy": 0.28,
+    "stepM": 0.1,
+    "samplesPerFace": 32
+  },
+  "countedCategories": [
+    "columns",
+    "beams",
+    "braces",
+    "brackets",
+    "roof",
+    "continuity-estimated"
+  ],
+  "excluded": [
+    "base",
+    "ground",
+    "plaques",
+    "ornament",
+    "finial",
+    "statues",
+    "balustrade-deck"
+  ],
+  "V1": true,
+  "V2": true,
+  "pass": true,
+  "perBand": [
+    {
+      "bandId": "P1",
+      "y0": 11.194,
+      "y1": 17,
+      "ownerGroup": "hidden-1",
+      "maxBlankRunM": 0,
+      "minCenterOccupancy": 0.2934,
+      "pass": true
+    },
+    {
+      "bandId": "P2",
+      "y0": 21.554,
+      "y1": 26.2,
+      "ownerGroup": "hidden-2",
+      "maxBlankRunM": 0,
+      "minCenterOccupancy": 0.3002,
+      "pass": true
+    },
+    {
+      "bandId": "P3",
+      "y0": 30.951999999999998,
+      "y1": 35.8,
+      "ownerGroup": "hidden-3",
+      "maxBlankRunM": 0,
+      "minCenterOccupancy": 0.3051,
+      "pass": true
+    },
+    {
+      "bandId": "P4",
+      "y0": 40.486,
+      "y1": 45.2,
+      "ownerGroup": "hidden-4",
+      "maxBlankRunM": 0,
+      "minCenterOccupancy": 0.3002,
+      "pass": true
+    },
+    {
+      "bandId": "C5",
+      "y0": 50.348,
+      "y1": 54.1,
+      "ownerGroup": "bright-5",
+      "maxBlankRunM": 0,
+      "minCenterOccupancy": 0.3918,
+      "pass": true
+    }
+  ],
+  "perView": [
+    {
+      "bandId": "P1",
+      "faceIndex": 0,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.2942,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 1,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.593,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 2,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.2942,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 3,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6014,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 4,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.2934,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 5,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.593,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 6,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.2934,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P1",
+      "faceIndex": 7,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6014,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 0,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 1,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6127,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 2,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 3,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6241,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 4,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 5,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6127,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 6,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P2",
+      "faceIndex": 7,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6241,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 0,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3061,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 1,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6461,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 2,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3061,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 3,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6535,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 4,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3051,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 5,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6461,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 6,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3051,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P3",
+      "faceIndex": 7,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6535,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 0,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3011,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 1,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6136,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 2,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3011,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 3,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.625,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 4,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 5,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6136,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 6,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3002,
+      "blankRanges": []
+    },
+    {
+      "bandId": "P4",
+      "faceIndex": 7,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.625,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 0,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.393,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 1,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6514,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 2,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.393,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 3,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6599,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 4,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3918,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 5,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6514,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 6,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.3918,
+      "blankRanges": []
+    },
+    {
+      "bandId": "C5",
+      "faceIndex": 7,
+      "maxBlankRunM": 0,
+      "centerOccupancy": 0.6599,
+      "blankRanges": []
+    }
+  ],
+  "failRanges": []
+}

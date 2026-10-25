@@ -11,6 +11,7 @@
  */
 
 import './app/ui.css';
+import * as THREE from 'three';
 
 import { createStore } from './app/state.js';
 import { createUI } from './app/ui.js';
@@ -154,6 +155,8 @@ async function boot() {
   try {
     pagoda = await buildPagoda({
       quality: 'high',
+      // ?nocontinuity=1：关闭本轮新增的过渡构架，用于可复现的前后对照
+      continuity: params.get('nocontinuity') !== '1',
       onProgress: (stageName, done, total) => {
         ui.setBootProgress(stageName, done, total);
         store.setProgress(stageName, done, total);
@@ -395,6 +398,48 @@ async function boot() {
       /** 设置画布尺寸（帧率实测切换视口） */
       setSize: (w, h) => { stage.renderer.setSize(w, h, false); stage.camera.aspect = w / h; stage.camera.updateProjectionMatrix(); },
       getReady: () => store.get().boot === 'ready',
+      /** 过渡构架的世界坐标记录（供连续度校验；records 带 world-space bbox） */
+      getContinuityRecords: () => pagoda?.metadata?.continuityRecords ?? [],
+      /** 既有结构 + 新增估算件的全部世界包围盒记录 */
+      getAllStructuralRecords: () => [
+        ...(pagoda?.metadata?.structureRecords ?? []),
+        ...(pagoda?.metadata?.continuityRecords ?? [])
+      ],
+      getContinuityDiagnostics: () => pagoda?.metadata?.continuityDiagnostics ?? null,
+      /** 供校验脚本设定近正交的固定机位 */
+      setCamera: ({ azimuthDeg = 0, elevationDeg = 0, distance = 420, targetY = 33.5, fov = 12 } = {}) => {
+        const az = (azimuthDeg * Math.PI) / 180;
+        const el = (elevationDeg * Math.PI) / 180;
+        const t = new THREE.Vector3(0, targetY, 0);
+        const horiz = Math.cos(el) * distance;
+        const pos = new THREE.Vector3(
+          t.x + Math.sin(az) * horiz,
+          t.y + Math.sin(el) * distance,
+          t.z + Math.cos(az) * horiz
+        );
+        stage.camera.fov = fov;
+        stage.camera.updateProjectionMatrix();
+        stage.controls.target.copy(t);
+        // OrbitControls 会把距离夹在 [minDistance, maxDistance] 内；
+        // 正交立面需要更远的机位，临时放宽再恢复，并 controls.update() 之后重新落位。
+        const prevMax = stage.controls.maxDistance;
+        const prevMin = stage.controls.minDistance;
+        stage.controls.maxDistance = Math.max(prevMax, distance);
+        stage.controls.minDistance = Math.min(prevMin, distance);
+        stage.controls.update();
+        stage.controls.maxDistance = prevMax;
+        stage.controls.minDistance = prevMin;
+        stage.camera.position.copy(pos);
+        stage.camera.lookAt(t);
+        return { azimuthDeg, elevationDeg, distance, targetY, fov };
+      },
+      getCamera: () => ({
+        position: stage.camera.position.toArray(),
+        target: stage.controls.target.toArray(),
+        fov: stage.camera.fov,
+        aspect: stage.camera.aspect
+      }),
+      getScene: () => stage.scene,
       textFallbackLength: () => (document.getElementById('overlay-text')?.innerHTML.length) || 0,
       presets: CAMERA_PRESETS.map((p) => p.key),
       levels: LEVELS.map((l) => l.name),

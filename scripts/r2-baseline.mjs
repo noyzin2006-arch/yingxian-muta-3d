@@ -49,18 +49,20 @@ await page.send('Log.enable');
 await page.setViewport(1920, 1080, 1, false);
 
 const consoleLog = [];
-cdp.on('Runtime.consoleAPICalled', (p) => {
-  consoleLog.push({
-    type: p.type,
-    text: (p.args ?? []).map((a) => a.value ?? a.description ?? '').join(' ')
+if (typeof cdp.on === 'function') {
+  cdp.on('Runtime.consoleAPICalled', (p) => {
+    consoleLog.push({
+      type: p.type,
+      text: (p.args ?? []).map((a) => a.value ?? a.description ?? '').join(' ')
+    });
   });
-});
-cdp.on('Runtime.exceptionThrown', (p) => {
-  consoleLog.push({
-    type: 'exception',
-    text: p.exceptionDetails?.exception?.description ?? p.exceptionDetails?.text ?? ''
+  cdp.on('Runtime.exceptionThrown', (p) => {
+    consoleLog.push({
+      type: 'exception',
+      text: p.exceptionDetails?.exception?.description ?? p.exceptionDetails?.text ?? ''
+    });
   });
-});
+}
 
 await page.goto(`${BASE}/?debug=1`, { waitMs: 2000 });
 

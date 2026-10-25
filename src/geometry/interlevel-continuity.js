@@ -190,7 +190,10 @@ export function buildInterlevelContinuity(structure, opts = {}) {
       y0: meta.y0,
       y1: meta.y1,
       ownerGroup: meta.ownerGroup,
-      sourceIds: estimates.sources
+      certainty: 'estimate',
+      sourceIds: estimates.sources,
+      /** 世界坐标包围盒（供连续度分析做径向覆盖判定） */
+      bbox: { min: bb.min.toArray(), max: bb.max.toArray() }
     });
     diagnostics.added++;
     byOwner[meta.ownerGroup] = (byOwner[meta.ownerGroup] || 0) + 1;

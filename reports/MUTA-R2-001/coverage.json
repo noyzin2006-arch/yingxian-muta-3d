@@ -1,0 +1,489 @@
+{
+  "generatedAt": "2026-10-25T04:52:06.264Z",
+  "base": "http://127.0.0.1:5174",
+  "thresholds": {
+    "maxBlankRunM": 0.8,
+    "minCenterOccupancy": 0.28,
+    "minVoidPx": 12
+  },
+  "scope": {
+    "y0": 12.5,
+    "y1": 54.1
+  },
+  "detectedA": {
+    "pass": true,
+    "perBand": [
+      {
+        "bandId": "P1",
+        "y0": 12.5,
+        "y1": 17,
+        "records": 1326,
+        "maxBlankRunM": 0,
+        "minCenterOccupancy": 1,
+        "pass": true
+      },
+      {
+        "bandId": "P2",
+        "y0": 23.4,
+        "y1": 26.2,
+        "records": 1326,
+        "maxBlankRunM": 0,
+        "minCenterOccupancy": 1,
+        "pass": true
+      },
+      {
+        "bandId": "P3",
+        "y0": 32.8,
+        "y1": 35.8,
+        "records": 1326,
+        "maxBlankRunM": 0,
+        "minCenterOccupancy": 1,
+        "pass": true
+      },
+      {
+        "bandId": "P4",
+        "y0": 42.3,
+        "y1": 45.2,
+        "records": 1326,
+        "maxBlankRunM": 0,
+        "minCenterOccupancy": 1,
+        "pass": true
+      },
+      {
+        "bandId": "C5",
+        "y0": 52,
+        "y1": 54.1,
+        "records": 1326,
+        "maxBlankRunM": 0,
+        "minCenterOccupancy": 1,
+        "pass": true
+      }
+    ],
+    "failRanges": []
+  },
+  "detectedB": {
+    "views": [
+      {
+        "azimuthDeg": 0,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9658,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9802,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9809,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.9102,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9313,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 45,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9738,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9803,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9827,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.8887,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9072,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 90,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9693,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9806,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9824,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.92,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9319,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 135,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9741,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9809,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9828,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.8888,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9068,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 180,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9663,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9805,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9819,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.9111,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9323,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 225,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9743,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9811,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.984,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.8966,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.907,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 270,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9696,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.9806,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9869,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.9276,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9489,
+            "samples": 20
+          }
+        ]
+      },
+      {
+        "azimuthDeg": 315,
+        "pxPerM": 13.994,
+        "maxBlankRunM": 0,
+        "blankRanges": [],
+        "bands": [
+          {
+            "bandId": "P1",
+            "centerOccupancy": 0.9741,
+            "samples": 44
+          },
+          {
+            "bandId": "P2",
+            "centerOccupancy": 0.981,
+            "samples": 27
+          },
+          {
+            "bandId": "P3",
+            "centerOccupancy": 0.9828,
+            "samples": 29
+          },
+          {
+            "bandId": "P4",
+            "centerOccupancy": 0.8952,
+            "samples": 28
+          },
+          {
+            "bandId": "C5",
+            "centerOccupancy": 0.9137,
+            "samples": 20
+          }
+        ]
+      }
+    ],
+    "maxBlankRunM": 0,
+    "minCenterOccupancy": 0.8887
+  },
+  "generator": {
+    "added": 456,
+    "skippedDuplicates": 152,
+    "collisions": 168,
+    "continuousYRanges": {
+      "P1": {
+        "y0": 11.194,
+        "y1": 17
+      },
+      "P2": {
+        "y0": 21.554,
+        "y1": 26.2
+      },
+      "P3": {
+        "y0": 30.951999999999998,
+        "y1": 35.8
+      },
+      "P4": {
+        "y0": 40.486,
+        "y1": 45.2
+      },
+      "C5": {
+        "y0": 50.348,
+        "y1": 54.1
+      }
+    },
+    "bands": [
+      {
+        "id": "P1",
+        "y0": 11.194,
+        "y1": 17,
+        "ownerGroup": "hidden-1",
+        "kind": "transition",
+        "lowerLevel": 1,
+        "upperLevel": 2
+      },
+      {
+        "id": "P2",
+        "y0": 21.554,
+        "y1": 26.2,
+        "ownerGroup": "hidden-2",
+        "kind": "transition",
+        "lowerLevel": 2,
+        "upperLevel": 3
+      },
+      {
+        "id": "P3",
+        "y0": 30.951999999999998,
+        "y1": 35.8,
+        "ownerGroup": "hidden-3",
+        "kind": "transition",
+        "lowerLevel": 3,
+        "upperLevel": 4
+      },
+      {
+        "id": "P4",
+        "y0": 40.486,
+        "y1": 45.2,
+        "ownerGroup": "hidden-4",
+        "kind": "transition",
+        "lowerLevel": 4,
+        "upperLevel": 5
+      },
+      {
+        "id": "C5",
+        "y0": 50.348,
+        "y1": 54.1,
+        "ownerGroup": "bright-5",
+        "kind": "eaveSupport",
+        "lowerLevel": 5,
+        "upperLevel": 5
+      }
+    ],
+    "p1CoversRequired": true
+  },
+  "dimensions": {
+    "totalHeight": 67.31,
+    "base": 30.27,
+    "ratio": 2.2237,
+    "measurementDatum": "totalHeight = 地面至刹顶；base = 底层塔身最远顶点距（对角径）",
+    "levels": [
+      {
+        "index": 1,
+        "name": "一层",
+        "outerFaceWidthM": 9.5472,
+        "outerDiagonalM": 24.95,
+        "columnTopY": 14.9
+      },
+      {
+        "index": 2,
+        "name": "二层",
+        "outerFaceWidthM": 9.18,
+        "outerDiagonalM": 23.99,
+        "columnTopY": 23.9
+      },
+      {
+        "index": 3,
+        "name": "三层",
+        "outerFaceWidthM": 8.8128,
+        "outerDiagonalM": 23.03,
+        "columnTopY": 33.4
+      },
+      {
+        "index": 4,
+        "name": "四层",
+        "outerFaceWidthM": 8.4456,
+        "outerDiagonalM": 22.07,
+        "columnTopY": 42.9
+      },
+      {
+        "index": 5,
+        "name": "五层",
+        "outerFaceWidthM": 7.956,
+        "outerDiagonalM": 20.79,
+        "columnTopY": 53
+      }
+    ],
+    "moduleA": {
+      "A": 8.83,
+      "baseM": 4.415,
+      "bodyAndLotusM": 52.98,
+      "ironFinialM": 9.934,
+      "totalM": 67.329
+    }
+  },
+  "counts": {
+    "floors": 9,
+    "columns": 184,
+    "bracketSets": 352,
+    "bracketClasses": 33,
+    "statues": 26,
+    "plaques": 4,
+    "triangles": 277024,
+    "boundingBox": {
+      "min": [
+        -21.65,
+        0,
+        -24.485
+      ],
+      "max": [
+        21.65,
+        67.323,
+        21.65
+      ],
+      "size": [
+        43.3,
+        67.323,
+        46.135
+      ]
+    }
+  },
+  "verdict": {
+    "V1": "PASS",
+    "V2": "PASS"
+  }
+}

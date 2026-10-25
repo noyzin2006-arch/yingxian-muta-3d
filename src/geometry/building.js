@@ -12,6 +12,7 @@
 
 import * as THREE from 'three';
 import { buildStructure } from '../data/structure.js';
+import { LEVEL_LAYOUT } from '../data/dimensions.js';
 import { buildLevelFrame, buildGroundWalls, buildAllWalls, makeColumnBase } from './columns.js';
 import { buildInterlevelContinuity } from './interlevel-continuity.js';
 import { CONTINUITY_ESTIMATES, CONTINUITY_MATERIALS } from '../data/continuity-estimates.js';
@@ -67,6 +68,11 @@ const nextFrame = () => new Promise((resolve) => {
  * @param {(stage:string, done:number, total:number)=>void} [opts.onProgress]
  * @returns {Promise<object>}
  */
+/** 取某明层的 y 区间（避免在循环里重复解构） */
+function lv_band(index) {
+  return LEVEL_LAYOUT.brightBands[index - 1];
+}
+
 export async function buildPagoda(opts = {}) {
   const quality = opts.quality ?? 'high';
   const onProgress = opts.onProgress ?? (() => {});
@@ -133,6 +139,8 @@ export async function buildPagoda(opts = {}) {
 
   const metadata = {
     columnRecords: [],
+    /** 既有结构（柱/梁/撑/铺作/屋面）的世界包围盒记录，供连续度检测 A 使用 */
+    structureRecords: [],
     statueRecords: [],
     plaqueRecords: [],
     bracketLedger: null,
@@ -173,6 +181,33 @@ export async function buildPagoda(opts = {}) {
     metadata.columnRecords.push(...frame.columnRecords);
 
     const colGeos = frame.columns.map((c) => grainVertical(c));
+    frame.columns.forEach((geo, gi) => {
+      geo.computeBoundingBox();
+      metadata.structureRecords.push({
+        id: `exist:L${i}:col${gi}`, bandId: `L${i}`, kind: 'column',
+        y0: lv_band(i).y0, y1: lv_band(i).y1,
+        bbox: { min: geo.boundingBox.min.toArray(), max: geo.boundingBox.max.toArray() },
+        certainty: 'published'
+      });
+    });
+    frame.beams.forEach((geo, gi) => {
+      geo.computeBoundingBox();
+      metadata.structureRecords.push({
+        id: `exist:L${i}:beam${gi}`, bandId: `L${i}`, kind: 'beam',
+        y0: geo.boundingBox.min[1], y1: geo.boundingBox.max[1],
+        bbox: { min: geo.boundingBox.min.toArray(), max: geo.boundingBox.max.toArray() },
+        certainty: 'published'
+      });
+    });
+    frame.braces.forEach((geo, gi) => {
+      geo.computeBoundingBox();
+      metadata.structureRecords.push({
+        id: `exist:L${i}:brace${gi}`, bandId: `L${i}`, kind: 'brace',
+        y0: geo.boundingBox.min[1], y1: geo.boundingBox.max[1],
+        bbox: { min: geo.boundingBox.min.toArray(), max: geo.boundingBox.max.toArray() },
+        certainty: 'published'
+      });
+    });
     const colMesh = new THREE.Mesh(mergeSafe(colGeos), woodMat);
     colMesh.name = `第${i}层柱`;
     colMesh.castShadow = true;
@@ -224,7 +259,9 @@ export async function buildPagoda(opts = {}) {
   }
 
   // ── 2c. 明暗过渡构架（估算件；补上「层与层之间」的承重视觉链）
-  const continuity = buildInterlevelContinuity(structure, {
+  const continuity = opts.continuity === false
+    ? { pieces: [], records: [], byOwner: {}, diagnostics: { added: 0, skippedDuplicates: 0, collisions: 0, continuousYRanges: {}, disabled: true } }
+    : buildInterlevelContinuity(structure, {
     estimates: CONTINUITY_ESTIMATES,
     existingColumnRecords: metadata.columnRecords,
     wallTops: wallSet.wallTops
@@ -261,13 +298,27 @@ export async function buildPagoda(opts = {}) {
     const g = ensureFloor(`bright-${i}`);
     const geos = [];
     for (const p of res.placements) {
+      let minX = Infinity, minY = Infinity, minZ = Infinity;
+      let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
       for (const piece of p.pieces) {
         const geo = piece.geometry.clone();
         geo.rotateY(p.rotationY);
         geo.translate(p.position.x, p.position.y, p.position.z);
         geos.push(geo);
+        geo.computeBoundingBox();
+        const bb = geo.boundingBox;
+        minX = Math.min(minX, bb.min.x); minY = Math.min(minY, bb.min.y); minZ = Math.min(minZ, bb.min.z);
+        maxX = Math.max(maxX, bb.max.x); maxY = Math.max(maxY, bb.max.y); maxZ = Math.max(maxZ, bb.max.z);
         piece.geometry.dispose();
       }
+      // 每套铺作一条世界包围盒记录（供连续度检测 A 的射线粗筛）
+      metadata.structureRecords.push({
+        id: `exist:L${i}:bracket${metadata.structureRecords.length}`,
+        bandId: `L${i}`, kind: 'bracket',
+        y0: minY, y1: maxY,
+        bbox: { min: [minX, minY, minZ], max: [maxX, maxY, maxZ] },
+        certainty: 'published'
+      });
     }
     const mesh = new THREE.Mesh(mergeSafe(geos), bracketMat);
     mesh.name = `第${i}层斗栱`;
@@ -291,6 +342,13 @@ export async function buildPagoda(opts = {}) {
     for (let i = 0; i < roofs.roof.length; i++) {
       const eave = structure.eaves[i];
       const g = ensureFloor(`bright-${eave.ownerLevel}`);
+      roofs.roof[i].computeBoundingBox();
+      metadata.structureRecords.push({
+        id: `exist:${eave.name}`, bandId: `L${eave.ownerLevel}`, kind: 'roof',
+        y0: roofs.roof[i].boundingBox.min[1], y1: roofs.roof[i].boundingBox.max[1],
+        bbox: { min: roofs.roof[i].boundingBox.min.toArray(), max: roofs.roof[i].boundingBox.max.toArray() },
+        certainty: 'published'
+      });
       const mesh = new THREE.Mesh(roofs.roof[i], tileMat);
       mesh.name = eave.name;
       mesh.castShadow = true;
@@ -442,6 +500,10 @@ export async function buildPagoda(opts = {}) {
   const box = new THREE.Box3().setFromObject(root);
   metadata.counts = {
     floors: Object.keys(floors).length,
+    brightFloors: Object.keys(floors).filter((k) => k.startsWith('bright-')).length,
+    hiddenFloors: Object.keys(floors).filter((k) => k.startsWith('hidden-')).length,
+    eaves: structure.eaves.length,
+    groundColumns: metadata.columnRecords.filter((r) => r.floor === 1).length,
     columns: metadata.columnRecords.length,
     bracketSets: metadata.bracketLedger.totalSets,
     bracketClasses: metadata.bracketLedger.distinctGeometryClasses,

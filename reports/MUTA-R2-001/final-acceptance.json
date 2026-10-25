@@ -1,0 +1,162 @@
+{
+  "generatedAt": "2026-10-25T04:58:29.386Z",
+  "base": "http://127.0.0.1:5174",
+  "V5_performance": {
+    "frameCount": 480,
+    "medianFrameMs": 16.700000000000728,
+    "medianFps": 59.88023952095548,
+    "p95FrameMs": 33.399999999999636,
+    "drawCalls": 139,
+    "triangles": 502544,
+    "geometries": 81,
+    "textures": 36
+  },
+  "V5_thresholds": {
+    "minMedianFps": 55,
+    "maxDrawCalls": 450,
+    "maxTriangles": 1200000
+  },
+  "V5_pass": true,
+  "V6_sectionRoundTrip": {
+    "rounds": 20,
+    "distinctStates": 1,
+    "driftCalls": 0,
+    "driftTriangles": 0,
+    "memoryGrowth": 0,
+    "textureGrowth": 0,
+    "maxWholeCallDeviation": 0,
+    "wholeCallSeries": [
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139,
+      139
+    ],
+    "sample": [
+      [
+        139,
+        502544,
+        139,
+        502544
+      ],
+      [
+        139,
+        502544,
+        139,
+        502544
+      ],
+      [
+        139,
+        502544,
+        139,
+        502544
+      ]
+    ],
+    "last": [
+      139,
+      502544,
+      139,
+      502544
+    ]
+  },
+  "V6_pass": true,
+  "V7_responsive": [
+    {
+      "viewport": "1920x1080",
+      "horizontalOverflow": 0,
+      "bodyOverflow": 0,
+      "canvasRect": {
+        "w": 1920,
+        "h": 1080
+      },
+      "visibleButtons": 15,
+      "buttonsUnder44px": [],
+      "viewPressed": "true"
+    },
+    {
+      "viewport": "1440x900",
+      "horizontalOverflow": 0,
+      "bodyOverflow": 0,
+      "canvasRect": {
+        "w": 1440,
+        "h": 900
+      },
+      "visibleButtons": 15,
+      "buttonsUnder44px": [],
+      "viewPressed": "true"
+    },
+    {
+      "viewport": "768x1024",
+      "horizontalOverflow": 0,
+      "bodyOverflow": 0,
+      "canvasRect": {
+        "w": 768,
+        "h": 1024
+      },
+      "visibleButtons": 15,
+      "buttonsUnder44px": [],
+      "viewPressed": "true"
+    },
+    {
+      "viewport": "390x844",
+      "horizontalOverflow": 0,
+      "bodyOverflow": 0,
+      "canvasRect": {
+        "w": 390,
+        "h": 844
+      },
+      "visibleButtons": 15,
+      "buttonsUnder44px": [],
+      "viewPressed": "true"
+    },
+    {
+      "viewport": "375x812",
+      "horizontalOverflow": 0,
+      "bodyOverflow": 0,
+      "canvasRect": {
+        "w": 375,
+        "h": 812
+      },
+      "visibleButtons": 15,
+      "buttonsUnder44px": [],
+      "viewPressed": "true"
+    }
+  ],
+  "V7_pass": true,
+  "V8_externalRequests": {
+    "count": 0,
+    "urls": []
+  },
+  "V8_pass": true,
+  "consoleErrors": {
+    "count": 0,
+    "sample": []
+  },
+  "Q1_keyboard": {
+    "foundWhole": true,
+    "foundSection": true,
+    "focusTag": "whole",
+    "focusRing": true,
+    "sectionPressed": "true",
+    "wholePressedAfter": "false",
+    "wholePressedAfterEsc": "true",
+    "sectionPressedAfterEsc": "false",
+    "canvasIsNotFocusable": -1
+  },
+  "Q1_pass": true
+}
