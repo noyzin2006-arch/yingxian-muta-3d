@@ -13,6 +13,8 @@
 import * as THREE from 'three';
 import { buildStructure } from '../data/structure.js';
 import { buildLevelFrame, buildGroundWalls, buildAllWalls, makeColumnBase } from './columns.js';
+import { buildInterlevelContinuity } from './interlevel-continuity.js';
+import { CONTINUITY_ESTIMATES, CONTINUITY_MATERIALS } from '../data/continuity-estimates.js';
 import { buildLevelBrackets, summarizeBrackets } from './brackets.js';
 import { buildAllRoofs } from './roof.js';
 import { buildAllBalustrades } from './balustrade.js';
@@ -98,10 +100,18 @@ export async function buildPagoda(opts = {}) {
   const goldMat = makeGoldMaterial({ color: 0xB39A65 });
   const paintMat = makePaintedWoodMaterial({ color: 0x803D33 });
   const paintGreenMat = makePaintedWoodMaterial({ color: 0x486153 });
+  // 新增「估算过渡构架」的材质：颜色取 --mat-* 令牌，仍走 makeWoodMaterial 出口
+  const continuityMats = {
+    frame: makeWoodMaterial(woodSet, { color: CONTINUITY_MATERIALS.frame, roughness: 0.9, variant: 3 }),
+    beam: makeWoodMaterial(woodSet, { color: CONTINUITY_MATERIALS.beam, roughness: 0.88, variant: 1 }),
+    brace: makeWoodMaterial(woodSet, { color: CONTINUITY_MATERIALS.brace, roughness: 0.92, variant: 2 }),
+    shadow: makeWoodMaterial(woodSet, { color: CONTINUITY_MATERIALS.shadow, roughness: 0.95, variant: 3 }),
+    roof: makeWoodMaterial(woodSet, { color: CONTINUITY_MATERIALS.roof, roughness: 0.9, variant: 0 })
+  };
 
   const materials = {
     woodMat, woodMatDark, woodMatWarm, woodMatWeathered,
-    wallWoodMat, cinnabarWallMat, bracketMat,
+    wallWoodMat, cinnabarWallMat, bracketMat, ...continuityMats,
     stoneMat, brickMat, plasterMat, tileMat, ridgeMat,
     glazeMat, ironMat, goldMat, paintMat, paintGreenMat
   };
@@ -193,6 +203,52 @@ export async function buildPagoda(opts = {}) {
     g.add(baseMesh);
 
     perFloorWood[i] = { columns: colGeos };
+  }
+
+  // ── 2b. 明层墙体（先建，量得真实墙顶供过渡构架用）
+  const wallSet = buildAllWalls(structure);
+  {
+    const wallMesh = new THREE.Mesh(mergeSafe(wallSet.walls), wallWoodMat);
+    wallMesh.name = '明层墙体';
+    wallMesh.castShadow = true;
+    wallMesh.receiveShadow = true;
+    globalGroup.add(wallMesh);
+    const latticeMesh = new THREE.Mesh(mergeSafe(wallSet.lattice), woodMatDark);
+    latticeMesh.name = '直棂窗与格子门';
+    latticeMesh.castShadow = true;
+    globalGroup.add(latticeMesh);
+    const floorMesh = new THREE.Mesh(mergeSafe(wallSet.floors), woodMatWeathered);
+    floorMesh.name = '楼板';
+    floorMesh.receiveShadow = true;
+    globalGroup.add(floorMesh);
+  }
+
+  // ── 2c. 明暗过渡构架（估算件；补上「层与层之间」的承重视觉链）
+  const continuity = buildInterlevelContinuity(structure, {
+    estimates: CONTINUITY_ESTIMATES,
+    existingColumnRecords: metadata.columnRecords,
+    wallTops: wallSet.wallTops
+  });
+  metadata.continuityDiagnostics = continuity.diagnostics;
+  metadata.continuityRecords = continuity.records;
+  {
+    // 按 ownerGroup × materialKey 合批，保持可分楼层显隐
+    const batches = new Map();
+    for (const piece of continuity.pieces) {
+      const key = `${piece.ownerGroup}|${piece.materialKey}`;
+      if (!batches.has(key)) batches.set(key, []);
+      batches.get(key).push(piece);
+    }
+    for (const [key, list] of batches) {
+      const [ownerGroup, materialKey] = key.split('|');
+      const g = ensureFloor(ownerGroup);
+      const mesh = new THREE.Mesh(mergeSafe(list.map((p) => p.geometry)), continuityMats[materialKey] ?? woodMat);
+      mesh.name = `过渡构架·${ownerGroup}·${materialKey}（估算）`;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.userData.isEstimatedSupplement = true;
+      g.add(mesh);
+    }
   }
 
   // ── 3. 铺作
@@ -338,24 +394,6 @@ export async function buildPagoda(opts = {}) {
   onProgress('正在生成墙体与彩画', 8, 8);
   await nextFrame();
   {
-    const wallSet = buildAllWalls(structure);
-    // 外檐墙 + 内槽墙（二至五层）
-    const wallMesh = new THREE.Mesh(mergeSafe(wallSet.walls), wallWoodMat);
-    wallMesh.name = '明层墙体';
-    wallMesh.castShadow = true;
-    wallMesh.receiveShadow = true;
-    globalGroup.add(wallMesh);
-    // 直棂窗 / 格子门
-    const latticeMesh = new THREE.Mesh(mergeSafe(wallSet.lattice), woodMatDark);
-    latticeMesh.name = '直棂窗与格子门';
-    latticeMesh.castShadow = true;
-    globalGroup.add(latticeMesh);
-    // 楼板（暗层顶 = 下一层平座底）
-    const floorMesh = new THREE.Mesh(mergeSafe(wallSet.floors), woodMatWeathered);
-    floorMesh.name = '楼板';
-    floorMesh.receiveShadow = true;
-    globalGroup.add(floorMesh);
-
     const walls = buildGroundWalls(structure);
     const groundWallMesh = new THREE.Mesh(mergeSafe(walls), cinnabarWallMat);
     groundWallMesh.name = '首层墙体（朱红）';

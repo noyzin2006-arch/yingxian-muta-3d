@@ -113,7 +113,8 @@ export function buildLevelFrame(structure, levelIndex, opts = {}) {
     columns.push(g);
     columnRecords.push({
       id: `L${levelIndex}-outer-${i}`, floor: levelIndex, ring: 'outer',
-      kind: p.kind, face: p.face, x: p.x, z: p.z, radius: lv.outer.radius
+      kind: p.kind, face: p.face, x: p.x, z: p.z, radius: lv.outer.radius,
+      y0: lv.band.y0, y1: topY
     });
   });
 
@@ -127,7 +128,8 @@ export function buildLevelFrame(structure, levelIndex, opts = {}) {
     columns.push(g);
     columnRecords.push({
       id: `L${levelIndex}-inner-${i}`, floor: levelIndex, ring: 'inner',
-      kind: 'corner', face: p.face, x: p.x, z: p.z, radius: lv.inner.radius
+      kind: 'corner', face: p.face, x: p.x, z: p.z, radius: lv.inner.radius,
+      y0: lv.band.y0, y1: topY
     });
   });
 
@@ -143,7 +145,8 @@ export function buildLevelFrame(structure, levelIndex, opts = {}) {
       columns.push(g);
       columnRecords.push({
         id: `L${levelIndex}-secondary-${i}`, floor: levelIndex, ring: 'secondary',
-        kind: p.kind, face: p.face, x: p.x, z: p.z, radius: lv.secondary.radius
+        kind: p.kind, face: p.face, x: p.x, z: p.z, radius: lv.secondary.radius,
+        y0: lv.band.y0, y1: lv.band.y0 + height * 0.95
       });
     });
   }
@@ -343,7 +346,10 @@ export function buildLevelWalls(structure, levelIndex) {
     floors.push(geo);
   });
 
-  return { walls, lattice, floors };
+  // 实测墙顶：外檐实墙的最高点（规划 §5.1 / U03：不能把 brightBands.y1 当作真实墙顶）
+  const wallMaxY = lv.band.y0 + wallH;
+
+  return { walls, lattice, floors, wallMaxY };
 }
 
 /**
@@ -354,14 +360,16 @@ export function buildAllWalls(structure) {
   const walls = [];
   const lattice = [];
   const floors = [];
+  const wallTops = {};
   for (let i = 1; i <= 5; i++) {
     const r = buildLevelWalls(structure, i);
     floors.push(...r.floors);
+    wallTops[i] = r.wallMaxY;
     if (i === 1) continue;      // 首层墙体用 buildGroundWalls
     walls.push(...r.walls);
     lattice.push(...r.lattice);
   }
-  return { walls, lattice, floors };
+  return { walls, lattice, floors, wallTops };
 }
 
 /**
