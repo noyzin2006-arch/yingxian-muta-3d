@@ -1,0 +1,20 @@
+{
+  "task": "SFLIP-MUTA-001",
+  "flow": "sflipcloop",
+  "brief": "handoff/sflipcloop/planning-request.md",
+  "plan": "handoff/sflipcloop/plan.md",
+  "status": "handoff/sflipcloop/status.json",
+  "note": "网页版 ChatGPT 一次性规划 → GitHub 交接 → 本机实施。plan.md 到位前，受管路径不得提交实现代码。策展资产（handoff/、scripts/、docs/、README）不受限。",
+  "guardedPaths": [
+    "src/",
+    "public/",
+    "index.html",
+    "package.json",
+    "package-lock.json",
+    "vite.config.js",
+    "vite.config.ts",
+    "vite.config.mjs",
+    "dist/",
+    ".github/"
+  ]
+}
