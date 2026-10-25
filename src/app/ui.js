@@ -222,7 +222,17 @@ export function createUI(handlers = {}) {
     setBootProgress(stage, done, total) {
       el.bootStage.textContent = stage;
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-      el.bootBar.style.width = `${pct}%`;
+      // 只动 transform：规划 §3.1「DOM 仅 opacity/transform」
+      el.bootBar.style.transform = `scaleX(${Math.max(0, Math.min(1, pct / 100))})`;
+    },
+
+    /**
+     * 规划 §3.2 禁用态：aria-disabled + 明确文案「不可用」，不得只变灰。
+     * 用于「重试轻量版」防连点（按钮事件必须幂等）。
+     */
+    setOverlayBusy(busy) {
+      el.btnRetryLight.setAttribute('aria-disabled', String(busy));
+      el.btnRetryLight.textContent = busy ? '重试中…（暂不可用）' : '重试轻量版';
     },
 
     hideBoot() {

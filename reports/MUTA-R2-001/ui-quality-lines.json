@@ -1,0 +1,719 @@
+{
+  "capturedAt": "2026-10-25T05:38:47.125Z",
+  "base": "http://127.0.0.1:4173",
+  "tokens": {
+    "values": {
+      "--bg-0": "#f2f0e9",
+      "--bg-1": "#eae7dc",
+      "--bg-2": "#e0dccf",
+      "--bg-3": "#d3cfc0",
+      "--fg-main": "#222723",
+      "--fg-secondary": "#4a514c",
+      "--fg-weak": "#626a63",
+      "--fg-disabled": "#8a8f8a",
+      "--accent-bright": "#2f5a4e",
+      "--ok": "#2a6e50",
+      "--warn": "#8a5a12",
+      "--danger": "#a3322a",
+      "--info": "#2e6a8e",
+      "--stroke-strong": "#6e756e",
+      "--stroke-soft": "#b8b6ac",
+      "--text-xs": "12px",
+      "--text-sm": "14px",
+      "--text-md": "16px",
+      "--text-lg": "20px",
+      "--text-xl": "25px",
+      "--text-2xl": "31px",
+      "--lh-xs": "18px",
+      "--lh-sm": "21px",
+      "--lh-md": "26px",
+      "--lg": "",
+      "--lh-xl": "31px",
+      "--lh-2xl": "38px",
+      "--s1": "4px",
+      "--s2": "8px",
+      "--s3": "12px",
+      "--s4": "16px",
+      "--s5": "24px",
+      "--s6": "32px",
+      "--s7": "48px",
+      "--s8": "64px",
+      "--s9": "96px",
+      "--r-xs": "4px",
+      "--r-sm": "8px",
+      "--r-md": "12px",
+      "--r-lg": "16px",
+      "--r-pill": "999px",
+      "--shadow-0": "none",
+      "--shadow-1": "0 2px 8px #2227231f",
+      "--shadow-2": "0 2px 18px #22272324",
+      "--shadow-3": "0 12px 48px #00000047",
+      "--shadow-4": "0 -6px 24px #22272329",
+      "--z-scene": "0",
+      "--z-hud": "10",
+      "--z-menu": "20",
+      "--z-dialog": "30",
+      "--z-toast": "40",
+      "--t-micro": ".1s",
+      "--t-state": ".18s",
+      "--t-enter": ".26s",
+      "--ease-standard": "cubic-bezier(.4, 0, .2, 1)",
+      "--ease-out": "cubic-bezier(0, 0, .2, 1)",
+      "--mat-frame": "#553a2b",
+      "--mat-beam": "#624533",
+      "--mat-brace": "#493224",
+      "--mat-shadow": "#261d1b",
+      "--mat-roof": "#434e49",
+      "--panel": "color-mix(in srgb, #f2f0e9 94%, transparent)",
+      "--ink": "#222723",
+      "--ink-muted": "#626a63",
+      "--accent": "#456a5f",
+      "--divider": "#b8b6ac",
+      "--radius": "12px",
+      "--ease": "cubic-bezier(0, 0, .2, 1)",
+      "--title-size": "52px"
+    },
+    "definedCount": 85,
+    "definedNames": [
+      "--bg-0",
+      "--bg-1",
+      "--bg-2",
+      "--bg-3",
+      "--fg-main",
+      "--fg-secondary",
+      "--fg-weak",
+      "--fg-inverse",
+      "--fg-disabled",
+      "--accent",
+      "--accent-bright",
+      "--ok",
+      "--warn",
+      "--danger",
+      "--info",
+      "--stroke-strong",
+      "--stroke-soft",
+      "--text-xs",
+      "--lh-xs",
+      "--w-xs",
+      "--ls-xs",
+      "--text-sm",
+      "--lh-sm",
+      "--w-sm",
+      "--ls-sm",
+      "--text-md",
+      "--lh-md",
+      "--w-md",
+      "--ls-md",
+      "--text-lg",
+      "--lh-lg",
+      "--w-lg",
+      "--ls-lg",
+      "--text-xl",
+      "--lh-xl",
+      "--w-xl",
+      "--ls-xl",
+      "--text-2xl",
+      "--lh-2xl",
+      "--w-2xl",
+      "--ls-2xl",
+      "--s1",
+      "--s2",
+      "--s3",
+      "--s4",
+      "--s5",
+      "--s6",
+      "--s7",
+      "--s8",
+      "--s9",
+      "--r-xs",
+      "--r-sm",
+      "--r-md",
+      "--r-lg",
+      "--r-pill",
+      "--shadow-0",
+      "--shadow-1",
+      "--shadow-2",
+      "--shadow-3",
+      "--shadow-4",
+      "--z-scene",
+      "--z-hud",
+      "--z-menu",
+      "--z-dialog",
+      "--z-toast",
+      "--t-micro",
+      "--t-state",
+      "--t-enter",
+      "--ease-standard",
+      "--ease-out",
+      "--mat-frame",
+      "--mat-beam",
+      "--mat-brace",
+      "--mat-shadow",
+      "--mat-roof",
+      "--ink",
+      "--ink-muted",
+      "--panel",
+      "--panel-solid",
+      "--divider",
+      "--sky",
+      "--shadow",
+      "--radius",
+      "--ease",
+      "--title-size"
+    ]
+  },
+  "styles": {
+    "title": {
+      "sel": "#yx-title h1",
+      "fontSize": "52px",
+      "lineHeight": "63.7419px",
+      "fontWeight": "700",
+      "letterSpacing": "-1.04px",
+      "color": "rgb(34, 39, 35)",
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "boxShadow": "none",
+      "zIndex": "auto",
+      "maxWidth": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 285,
+      "height": 127
+    },
+    "body": {
+      "sel": "#yx-note",
+      "fontSize": "12px",
+      "lineHeight": "19.2px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "color": "rgb(98, 106, 99)",
+      "background": "color(srgb 0.94902 0.941176 0.913725 / 0.94)",
+      "borderRadius": "8px",
+      "boxShadow": "none",
+      "zIndex": "20",
+      "maxWidth": "226.44px",
+      "padding": "4px 8px",
+      "margin": "0px",
+      "width": 226,
+      "height": 48
+    },
+    "card": {
+      "sel": "#yx-card",
+      "fontSize": "15px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "color": "rgb(34, 39, 35)",
+      "background": "color(srgb 0.94902 0.941176 0.913725 / 0.94)",
+      "borderRadius": "12px",
+      "boxShadow": "rgba(34, 39, 35, 0.14) 0px 2px 18px 0px",
+      "zIndex": "20",
+      "maxWidth": "none",
+      "padding": "16px",
+      "margin": "0px",
+      "width": 360,
+      "height": 56
+    },
+    "btn": {
+      "sel": ".yx-btn",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "500",
+      "letterSpacing": "0.14px",
+      "color": "rgb(242, 240, 233)",
+      "background": "rgb(69, 106, 95)",
+      "borderRadius": "8px",
+      "boxShadow": "none",
+      "zIndex": "auto",
+      "maxWidth": "none",
+      "padding": "8px 12px",
+      "margin": "0px",
+      "width": 54,
+      "height": 44
+    },
+    "canvas": {
+      "sel": "#stage canvas",
+      "fontSize": "15px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "color": "rgb(34, 39, 35)",
+      "background": "rgba(0, 0, 0, 0)",
+      "borderRadius": "0px",
+      "boxShadow": "none",
+      "zIndex": "auto",
+      "maxWidth": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 1920,
+      "height": 1080
+    },
+    "panelWidths": [
+      360,
+      0
+    ]
+  },
+  "contrast": [
+    {
+      "fg": "--fg-main",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "正文 / 面板底",
+      "ratio": 13.32,
+      "pass": true
+    },
+    {
+      "fg": "--fg-secondary",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "辅助文字 / 面板底",
+      "ratio": 7.16,
+      "pass": true
+    },
+    {
+      "fg": "--fg-weak",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "非禁用次级文字 / 面板底",
+      "ratio": 4.9,
+      "pass": true
+    },
+    {
+      "fg": "--fg-inverse",
+      "bg": "--accent",
+      "need": 4.5,
+      "label": "反色文字 / 选中态深底（--accent）",
+      "ratio": 5.29,
+      "pass": true
+    },
+    {
+      "fg": "--accent-bright",
+      "bg": "--bg-0",
+      "need": 3,
+      "label": "焦点环 / 面板底（WCAG 2.2 非文本 3:1）",
+      "ratio": 6.84,
+      "pass": true
+    },
+    {
+      "fg": "--stroke-strong",
+      "bg": "--bg-0",
+      "need": 3,
+      "label": "可交互控件边界 / 面板底（3:1）",
+      "ratio": 4.15,
+      "pass": true
+    },
+    {
+      "fg": "--warn",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "待核实标签 / 面板底",
+      "ratio": 5.18,
+      "pass": true
+    },
+    {
+      "fg": "--info",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "信息标签 / 面板底",
+      "ratio": 5.16,
+      "pass": true
+    },
+    {
+      "fg": "--danger",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "危险文案 / 面板底",
+      "ratio": 6.04,
+      "pass": true
+    },
+    {
+      "fg": "--ok",
+      "bg": "--bg-0",
+      "need": 4.5,
+      "label": "成功文案 / 面板底",
+      "ratio": 5.35,
+      "pass": true
+    },
+    {
+      "fg": "--fg-disabled",
+      "bg": "--bg-1",
+      "need": 2,
+      "label": "禁用文案 / 次级面（≥2:1）",
+      "ratio": 2.66,
+      "pass": true
+    }
+  ],
+  "a11y": {
+    "imgCount": 0,
+    "imgMissingAlt": [],
+    "svgCount": 0,
+    "svgWithoutLabel": 0,
+    "buttonCount": 25,
+    "namelessButtons": [],
+    "smallTargets": [],
+    "liveRegions": [
+      {
+        "id": "boot",
+        "live": "polite"
+      },
+      {
+        "id": "yx-live",
+        "live": "polite"
+      }
+    ],
+    "canvasTabIndex": null,
+    "canvasAriaLabel": "应县木塔三维模型",
+    "roleImg": 0,
+    "headings": [
+      "H1:应县木塔",
+      "H1:应县木塔 佛宫寺释迦塔",
+      "H2:",
+      "H2:证据与不确定度",
+      "H3:尺度口径",
+      "H3:斗栱计数",
+      "H3:保护现状",
+      "H3:尚未核实的项目",
+      "H3:来源",
+      "H2:说明",
+      "H3:操作",
+      "H3:1 层 · 一层·释迦佛殿",
+      "H3:2 层 · 二层·释迦与胁侍",
+      "H3:3 层 · 三层·四方佛",
+      "H3:4 层 · 四层·文殊普贤",
+      "H3:5 层 · 五层·毗卢遮那",
+      "H3:第 1 暗层 · 第一暗层",
+      "H3:第 2 暗层 · 第二暗层",
+      "H3:第 3 暗层 · 第三暗层",
+      "H3:第 4 暗层 · 第四暗层",
+      "H2:无法启动三维视图",
+      "H2:图形上下文已丢失"
+    ],
+    "lang": "zh-CN"
+  },
+  "tabOrder": [
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "全貌",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "结构剖视",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "逐层",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "白昼",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "夕照",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "夜景",
+      "tabindex": null
+    },
+    {
+      "id": "btn-whole",
+      "tag": "BUTTON",
+      "label": "全塔",
+      "tabindex": null
+    },
+    {
+      "id": "sel-view",
+      "tag": "SELECT",
+      "label": "选择机位",
+      "tabindex": null
+    },
+    {
+      "id": "sel-quality",
+      "tag": "SELECT",
+      "label": "选择画质",
+      "tabindex": null
+    },
+    {
+      "id": "btn-evidence",
+      "tag": "BUTTON",
+      "label": "证据与不确定度",
+      "tabindex": null
+    },
+    {
+      "id": "btn-help",
+      "tag": "BUTTON",
+      "label": "说明",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "石台基：石台基分上下两层，下方方形、上方八角，角",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "副阶与柱网：底层外圈设副阶柱，内外两圈柱构成套筒",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "斗栱：斗栱有 54 种形制，各层出跳逐级递减，文",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "平座与暗层：四个平座层在室内形成暗层，夹在明层之",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "匾额与造像：三层以上正南明间悬匾额，塔内五层明层",
+      "tabindex": null
+    },
+    {
+      "id": null,
+      "tag": "BUTTON",
+      "label": "塔刹：八角攒尖顶之上立铁刹，由覆钵、相轮、宝盖、",
+      "tabindex": null
+    }
+  ],
+  "focusVisible": {
+    "steps": [
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "全貌",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "结构剖视",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "逐层",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "白昼",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "夕照",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "label": "夜景",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(47, 90, 78)",
+        "outlineOffset": "2px",
+        "boxShadow": "none"
+      }
+    ],
+    "allHaveVisibleRing": true,
+    "sample": {
+      "tag": "BUTTON",
+      "id": null,
+      "label": "全貌",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "outlineColor": "rgb(47, 90, 78)",
+      "outlineOffset": "2px",
+      "boxShadow": "none"
+    }
+  },
+  "feedbackMs": [
+    {
+      "name": "切结构剖视",
+      "ms": 0.5,
+      "visibleChange": true
+    },
+    {
+      "name": "切夜景",
+      "ms": 0.3,
+      "visibleChange": true
+    },
+    {
+      "name": "开证据面板",
+      "ms": 0.5,
+      "visibleChange": true
+    }
+  ],
+  "states": [
+    {
+      "kind": "normal",
+      "label": "常态（就绪，无弹层）",
+      "visible": true,
+      "text": "点选塔身构件，了解结构",
+      "overlayHidden": true,
+      "bootHidden": true
+    },
+    {
+      "kind": "empty",
+      "label": "空态（未选中构件）",
+      "visible": true,
+      "text": "点选塔身构件，了解结构",
+      "cardBodyHidden": true
+    },
+    {
+      "kind": "success",
+      "label": "成功态（选中暗层构件 + 估算徽标）",
+      "visible": true,
+      "text": "平座与暗层 估算构件·待核实\n        四个平座层在室内形成暗层，夹在明层之间\n   ",
+      "badge": "估算构件·待核实"
+    },
+    {
+      "kind": "error",
+      "label": "错误态（失败遮罩 + 文字降级）",
+      "visible": true,
+      "text": "模型生成失败\n        模型生成失败，可重试轻量版或改读文字简介\n        \n ",
+      "hasRetry": true,
+      "hasTextFallback": true
+    },
+    {
+      "kind": "loading",
+      "label": "加载态（进度遮罩）",
+      "visible": true,
+      "text": "辽 · 清宁二年（1056）\n        应县木塔\n        佛宫寺释迦塔\n   ",
+      "stageText": "诊断用例：装配几何",
+      "barTransform": "scaleX(0.38)"
+    }
+  ],
+  "cssAudit": {
+    "styleSheetHrefs": [
+      "http://127.0.0.1:4173/assets/index-Bq-NMt18.css"
+    ],
+    "reducedMotionQuery": true,
+    "reducedMotionRule": "@media (prefers-reduced-motion: reduce) {\n  *, ::before, ::after { scroll-behavior: auto !important; transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }\n}",
+    "focusVisibleRules": [
+      ":focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }",
+      ":focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }",
+      ":focus-visible, .yx-hotspots button:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }",
+      ":focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }"
+    ],
+    "badTransitions": [],
+    "keyframes": [],
+    "keyframeLayout": [],
+    "tokensDefined": 85,
+    "tokensUsed": 80,
+    "deadTokens": [],
+    "matTokensConsumedBy3D": [
+      "--mat-frame",
+      "--mat-beam",
+      "--mat-brace",
+      "--mat-shadow",
+      "--mat-roof"
+    ],
+    "undefinedUsedTokens": [],
+    "rawVarFallbacks": 0
+  },
+  "responsive": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "horizontalScroll": 0,
+      "buttons": 22,
+      "smallTargets": [],
+      "smallTargetCount": 0,
+      "canvasW": 1920,
+      "canvasH": 1080,
+      "viewportH": 1080,
+      "canvasCoverRatio": 1
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "horizontalScroll": 0,
+      "buttons": 22,
+      "smallTargets": [],
+      "smallTargetCount": 0,
+      "canvasW": 1440,
+      "canvasH": 900,
+      "viewportH": 900,
+      "canvasCoverRatio": 1
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "horizontalScroll": 0,
+      "buttons": 22,
+      "smallTargets": [],
+      "smallTargetCount": 0,
+      "canvasW": 768,
+      "canvasH": 1024,
+      "viewportH": 1024,
+      "canvasCoverRatio": 1
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "horizontalScroll": 0,
+      "buttons": 22,
+      "smallTargets": [],
+      "smallTargetCount": 0,
+      "canvasW": 390,
+      "canvasH": 844,
+      "viewportH": 844,
+      "canvasCoverRatio": 1
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "horizontalScroll": 0,
+      "buttons": 22,
+      "smallTargets": [],
+      "smallTargetCount": 0,
+      "canvasW": 375,
+      "canvasH": 667,
+      "viewportH": 667,
+      "canvasCoverRatio": 1
+    }
+  ]
+}

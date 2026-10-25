@@ -3,5 +3,7 @@ dist/
 .DS_Store
 **/.DS_Store
 *.log
+# 验收原始输出属于交付证据（规划 §9 要求落盘），不能被 *.log 规则排除
+!reports/**/*.log
 .vite/
 reports/screenshots/*.tmp.png

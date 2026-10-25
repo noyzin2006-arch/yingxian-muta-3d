@@ -1,0 +1,12 @@
+# 帧时间长尾 A/B 定位（构建产物 vs 开发服务器，1920×1080 @DPR1，10s RAF 采样）
+# 生成时间：2026-10-25T05:25:32Z
+
+## 构建产物（vite preview :4173）
+A 调试接口+仪表+环绕                 median=  16.7ms (59.88 FPS)  mean=  31.9ms  frames= 314  p90=66.7 p95=66.7 p99=100 max=799.9  >33ms=114  >50ms=48
+B 调试接口（无仪表）+环绕               median=  16.7ms (59.88 FPS)  mean= 29.44ms  frames= 338  p90=50 p95=66.6 p99=83.3 max=100.1  >33ms=150  >50ms=29
+C 调试接口（无仪表）静止                median=  16.7ms (59.88 FPS)  mean= 30.61ms  frames= 330  p90=66.7 p95=83.4 p99=116.8 max=333.4  >33ms=100  >50ms=45
+
+## 开发服务器（vite dev :5174）
+A 调试接口+仪表+环绕                 median=  16.7ms (59.88 FPS)  mean= 30.46ms  frames= 325  p90=50.1 p95=83.3 p99=116.7 max=266.6  >33ms=118  >50ms=39
+B 调试接口（无仪表）+环绕               median=  16.7ms (59.88 FPS)  mean= 26.95ms  frames= 371  p90=50 p95=66.6 p99=83.3 max=83.4  >33ms=125  >50ms=31
+C 调试接口（无仪表）静止                median=  16.7ms (59.88 FPS)  mean= 28.29ms  frames= 354  p90=50 p95=66.7 p99=83.3 max=83.4  >33ms=130  >50ms=32

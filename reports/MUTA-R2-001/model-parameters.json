@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-10-25T04:59:05.303Z",
+  "units": "m",
+  "measurementDatum": "totalHeight = 地面至刹顶；base = 底层塔身最远顶点距（对角径）",
+  "totalHeight": 67.31,
+  "base": 30.27,
+  "ratio": 2.2237,
+  "eaves": 6,
+  "hiddenFloors": 4,
+  "platform": {
+    "height": 4,
+    "lowerSquareSide": 33,
+    "upperOctagonDiagonal": 35.47
+  },
+  "finial": {
+    "brickLotusBase": 2.17,
+    "iron": 9.95
+  },
+  "moduleA": {
+    "A": 8.83,
+    "baseM": 4.415,
+    "bodyAndLotusM": 52.98,
+    "ironFinialM": 9.934,
+    "totalM": 67.329
+  },
+  "levels": [
+    {
+      "index": 1,
+      "name": "一层",
+      "outerFaceWidthM": 9.5472,
+      "outerDiagonalM": 24.95,
+      "outerColumnCount": 24,
+      "innerColumnCount": 8,
+      "puzuoJump": 7,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "clearHeight": 10.9,
+      "columnTopY": 14.9
+    },
+    {
+      "index": 2,
+      "name": "二层",
+      "outerFaceWidthM": 9.18,
+      "outerDiagonalM": 23.99,
+      "outerColumnCount": 24,
+      "innerColumnCount": 8,
+      "puzuoJump": 7,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "clearHeight": 6.9,
+      "columnTopY": 23.9
+    },
+    {
+      "index": 3,
+      "name": "三层",
+      "outerFaceWidthM": 8.8128,
+      "outerDiagonalM": 23.03,
+      "outerColumnCount": 24,
+      "innerColumnCount": 8,
+      "puzuoJump": 6,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "clearHeight": 7.2,
+      "columnTopY": 33.4
+    },
+    {
+      "index": 4,
+      "name": "四层",
+      "outerFaceWidthM": 8.4456,
+      "outerDiagonalM": 22.07,
+      "outerColumnCount": 24,
+      "innerColumnCount": 8,
+      "puzuoJump": 5,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "clearHeight": 7.1,
+      "columnTopY": 42.9
+    },
+    {
+      "index": 5,
+      "name": "五层",
+      "outerFaceWidthM": 7.956,
+      "outerDiagonalM": 20.79,
+      "outerColumnCount": 24,
+      "innerColumnCount": 8,
+      "puzuoJump": 4,
+      "outerBaysPerFace": 3,
+      "innerBaysPerFace": 1,
+      "clearHeight": 7.8,
+      "columnTopY": 53
+    }
+  ],
+  "eaveConfig": [
+    {
+      "name": "一层下檐（裙檐）",
+      "y": 10.5,
+      "offset": 0.9,
+      "rise": 2.1,
+      "ownerLevel": 1,
+      "isApex": false
+    },
+    {
+      "name": "一层上檐",
+      "y": 16,
+      "offset": 2,
+      "rise": 3,
+      "ownerLevel": 1,
+      "isApex": false
+    },
+    {
+      "name": "二层檐",
+      "y": 25,
+      "offset": 1.9,
+      "rise": 2.8,
+      "ownerLevel": 2,
+      "isApex": false
+    },
+    {
+      "name": "三层檐",
+      "y": 34.5,
+      "offset": 1.8,
+      "rise": 2.6,
+      "ownerLevel": 3,
+      "isApex": false
+    },
+    {
+      "name": "四层檐",
+      "y": 44,
+      "offset": 1.7,
+      "rise": 2.4,
+      "ownerLevel": 4,
+      "isApex": false
+    },
+    {
+      "name": "五层攒尖顶",
+      "y": 54.1,
+      "offset": 1.5,
+      "rise": null,
+      "ownerLevel": 5,
+      "isApex": true
+    }
+  ]
+}

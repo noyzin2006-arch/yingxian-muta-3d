@@ -1,0 +1,474 @@
+{
+  "capturedAt": "2026-10-25T05:38:01.359Z",
+  "base": "http://127.0.0.1:4173",
+  "chrome": "Chrome/155.0.8059.86",
+  "shots": [
+    {
+      "file": "whole-after.png",
+      "label": "全貌（改造后，本轮新增过渡构架在位）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          84.53436110630321,
+          51.269838755501084,
+          146.4178084214916
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 22,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 141,
+      "triangles": 502546,
+      "pixelRatio": 1
+    },
+    {
+      "file": "whole-before.png",
+      "label": "全貌（改造前对照，同一相机，?nocontinuity=1 关闭本轮新增过渡构架）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          84.53436110630321,
+          51.269838755501084,
+          146.4178084214916
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 22,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 101,
+      "triangles": 491600,
+      "pixelRatio": 1
+    },
+    {
+      "file": "section-after.png",
+      "label": "结构剖视（改造后）：逐层数五明四暗",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -62.279895449388015,
+          36.2279895449388,
+          62.27989544938803
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 44,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-00.png",
+      "label": "正交立面 0°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          0,
+          44.43659861948946,
+          179.66744504955867
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-01.png",
+      "label": "正交立面 45°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          127.04406875300432,
+          44.43659861948946,
+          127.04406875300434
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-02.png",
+      "label": "正交立面 90°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          179.66744504955867,
+          44.43659861948946,
+          1.100145807454625e-14
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-03.png",
+      "label": "正交立面 135°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          127.04406875300434,
+          44.43659861948946,
+          -127.04406875300432
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-04.png",
+      "label": "正交立面 180°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          2.20029161490925e-14,
+          44.43659861948946,
+          -179.66744504955867
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-05.png",
+      "label": "正交立面 225°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -127.0440687530043,
+          44.436598619489466,
+          -127.0440687530044
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-06.png",
+      "label": "正交立面 270°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -179.66744504955867,
+          44.43659861948946,
+          -2.889272877937278e-14
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "view-07.png",
+      "label": "正交立面 315°（全貌模式，近正交 fov 26 / 距离 180 / 目标 y 33.5）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -127.04406875300435,
+          44.43659861948946,
+          127.0440687530043
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 26,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "mobile-390.png",
+      "label": "移动端 390×844 @3x（Chrome 模拟，非真机）",
+      "viewport": "390×844",
+      "devicePixelRatio": 3,
+      "mobileEmulation": true,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 0.46208530805687204
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "mobile-375.png",
+      "label": "移动端 375×667 @3x（Chrome 模拟，非真机）",
+      "viewport": "375×667",
+      "devicePixelRatio": 3,
+      "mobileEmulation": true,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 0.5622188905547226
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "zoom-200.png",
+      "label": "浏览器 200% 缩放（CSS 视口 960×540，devicePixelRatio 2，等价 1920×1080 物理像素下 200%）",
+      "viewport": "960×540",
+      "devicePixelRatio": 2,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          59.88914834985289,
+          40.79106574632631,
+          103.73104776397501
+        ],
+        "target": [
+          0,
+          33.5,
+          0
+        ],
+        "fov": 30,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "state-normal.png",
+      "label": "常态：就绪后的默认观览界面（全貌模式）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "state-empty.png",
+      "label": "空态：未选中构件，右侧注释卡显示空提示（全貌模式）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "state-success.png",
+      "label": "成功态：选中暗层构件，卡片带「估算构件·待核实」徽标与来源（全貌模式）",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "state-error.png",
+      "label": "错误态：模型生成失败遮罩，含纯文字降级简介",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "state-loading.png",
+      "label": "加载态：装配进度遮罩",
+      "viewport": "1920×1080",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": {
+        "position": [
+          -52.90446611399013,
+          36.3987496831198,
+          90.8359701202472
+        ],
+        "target": [
+          0,
+          30,
+          0
+        ],
+        "fov": 45,
+        "aspect": 1.7777777777777777
+      },
+      "drawCalls": 139,
+      "triangles": 502544,
+      "pixelRatio": 1
+    },
+    {
+      "file": "states.png",
+      "label": "界面五态拼版（由五张真实截图排版生成）",
+      "viewport": "1600×1180",
+      "devicePixelRatio": 1,
+      "mobileEmulation": false,
+      "camera": null,
+      "drawCalls": null,
+      "triangles": null,
+      "pixelRatio": null
+    }
+  ]
+}

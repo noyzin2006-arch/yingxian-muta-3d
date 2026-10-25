@@ -1,0 +1,13 @@
+{
+  "capturedAt": "2026-10-25T05:37:11.148Z",
+  "timeToInteractiveMs": 525,
+  "domContentLoadedMs": 39,
+  "cls": 0.0008924977494855968,
+  "navigation": {
+    "domContentLoadedMs": 38.69999998807907,
+    "loadEventMs": 40.29999998211861,
+    "responseEndMs": 1.899999976158142,
+    "transferSize": 300,
+    "type": "navigate"
+  }
+}

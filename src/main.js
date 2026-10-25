@@ -32,8 +32,9 @@ import { LEVELS, MODULE_A } from './data/dimensions.js';
 const params = new URLSearchParams(location.search);
 // 调试接口：开发环境或 ?debug=1 都可用（规划 §S10）
 const DEBUG = params.get('debug') === '1' || import.meta.env?.DEV;
-// 屏幕上的性能仪表：只在显式 ?debug=1 时显示，避免污染正式观感
-const SHOW_HUD = params.get('debug') === '1';
+// 屏幕上的性能仪表：只在显式 ?debug=1 时显示，避免污染正式观感；
+// ?nohud=1 可在保留调试接口的同时关掉仪表（用于分离仪表本身的渲染开销）。
+const SHOW_HUD = params.get('debug') === '1' && params.get('nohud') !== '1';
 
 const store = createStore();
 const a11y = createA11y(document.getElementById('yx-live'));
@@ -81,7 +82,13 @@ async function boot() {
     onHelp: () => { store.toggleModal('help'); a11y.announce('已打开说明'); },
     onCloseModal: () => store.set({ modal: null }, 'modal'),
     onCloseDrawer: () => { store.set({ selectedHotspot: null }, 'hotspot'); },
-    onRetryLight: () => { store.setQuality('low'); location.reload(); },
+    onRetryLight: () => {
+      // 「重试轻量版」必须真的以轻量档重启：画质档原本只存在内存里，
+      // 刷新后会回到 auto，导致「重试轻量版」名不副实。这里落 sessionStorage。
+      try { sessionStorage.setItem('yx-quality', 'low'); } catch (e) { /* 隐私模式下忽略 */ }
+      ui.setOverlayBusy(true);
+      requestAnimationFrame(() => location.reload());
+    },
     onReadText: () => {
       const body = document.getElementById('overlay-text');
       if (body) body.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -99,6 +106,17 @@ async function boot() {
       ui.setHud(SHOW_HUD ? `画质档：${profile.label}（${key}）` : null);
     }
   });
+
+  // 「重试轻量版」留下的画质意图：读取后立刻消费，避免长期钉死在低档
+  let persistedQuality = null;
+  try {
+    persistedQuality = sessionStorage.getItem('yx-quality');
+    if (persistedQuality) sessionStorage.removeItem('yx-quality');
+  } catch (e) { persistedQuality = null; }
+  if (persistedQuality && ['high', 'standard', 'low', 'safe'].includes(persistedQuality)) {
+    store.setQuality(persistedQuality);   // 同步到状态机（下方的 select 才显示一致）
+    quality.set(persistedQuality);         // 立即生效（此时订阅尚未建立）
+  }
 
   /* ── 状态 → 场景 ─────────────────────────────────────── */
   let lightTween = null;
@@ -419,7 +437,17 @@ async function boot() {
         );
         stage.camera.fov = fov;
         stage.camera.updateProjectionMatrix();
+        // 取消仍在进行的机位补间：补间每帧直接改写 camera.position，
+        // 不取消的话会在设机位之后继续把相机拉走（实测方位角漂 8°+）。
+        cameraDirector.cancel();
         stage.controls.target.copy(t);
+        // OrbitControls 开着阻尼，上一次拖拽/补间残留的 sphericalDelta 会在之后
+        // 每帧继续转动相机 —— 「设机位 → 截图」就不确定了（实测方位角会漂 10°+）。
+        // 先关一次阻尼跑一次 update()：残量被一次性吃干净并清零，随后再落位。
+        const prevDamping = stage.controls.enableDamping;
+        stage.controls.enableDamping = false;
+        stage.controls.update();
+        stage.controls.enableDamping = prevDamping;
         // OrbitControls 会把距离夹在 [minDistance, maxDistance] 内；
         // 正交立面需要更远的机位，临时放宽再恢复，并 controls.update() 之后重新落位。
         const prevMax = stage.controls.maxDistance;
@@ -440,6 +468,35 @@ async function boot() {
         aspect: stage.camera.aspect
       }),
       getScene: () => stage.scene,
+      /**
+       * 规划 T09 受控状态 fixture：仅在 ?debug=1 下可用，默认观览路径不残留任何 fixture。
+       * kind ∈ loading | empty | error | success | normal
+       * 用于把「正常 / 空 / 加载 / 错误 / 成功」五态各截一次真实截图（见 reports/MUTA-R2-001/）。
+       */
+      demoState: (kind = 'normal') => {
+        switch (kind) {
+          case 'loading':
+            ui.hideOverlay();
+            ui.showBoot();
+            ui.setBootProgress('诊断用例：装配几何', 3, 8);
+            return 'loading';
+          case 'empty':
+            ui.hideOverlay();
+            store.selectHotspot(null);
+            return 'empty';
+          case 'error':
+            ui.showOverlay('模型生成失败', UI_STRINGS.loadingFailed, { withText: true });
+            return 'error';
+          case 'success':
+            ui.hideOverlay();
+            store.selectHotspot('hiddenFloor');
+            return 'success';
+          case 'normal':
+          default:
+            ui.hideOverlay();
+            return 'normal';
+        }
+      },
       textFallbackLength: () => (document.getElementById('overlay-text')?.innerHTML.length) || 0,
       presets: CAMERA_PRESETS.map((p) => p.key),
       levels: LEVELS.map((l) => l.name),
